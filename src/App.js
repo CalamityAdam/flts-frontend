@@ -12,10 +12,9 @@ import './App.css';
 import { useStateValue } from './state';
 
 const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
-const FRONTEND_APP_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
+const FRONTEND_APP_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://adumb.dev'
 
 const App = props => {
-  console.log(process.env.NODE_ENV)
   const [slug, setSlug] = useState('');
   const [redirect, setRedirect] = useState('');
   const [expiration, setExpiration] = useState(5);

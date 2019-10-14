@@ -1,22 +1,77 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 10px;
+  background-color: #273136;
   color: white;
+  height: 100vh
 }
 
-.App-link {
-  color: #09d3ac;
+.container {
+  text-align: center;
+  width: 450px;
+  display: inline-block;
+}
+
+input[type=text] {
+  font-size: 2em;
+  width: 100%;
+  padding: .5em;
+  margin: 0 .5em .5em .5em;
+  box-sizing: border-box;
+  border-radius: 5px;
+  /* background-color: #BFBFBF; */
+  /* color: white; */
+}
+
+.form-error {
+  border: 3px solid red;
+}
+
+.h1-error {
+  font-size: 3em;
+  color: red;
+}
+
+.jumbotron {
+  font-size: 7em;
+  width: 100vw;
+  height: auto;
+  background-color: #4EADDE;
+}
+
+textarea {
+  width: 100%;
+  height: auto;
+  font-size: 3em;
+  box-sizing: border-box;
+  resize: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  white-space: pre;
+  word-wrap: normal;
+  /* overflow-x: visible; */
+  overflow: hidden;
+}
+
+select {
+  width: 50%;
+  font-size: 2em;
+  height: 2em;
+  padding: .5em;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+button {
+  width: auto;
+  font-size: 3em;
+  border-radius: 5px;
+  padding: .5em;
+  margin: .5em;
+  text-decoration: bold;
+}
+
+.form-label {
+  font-size: 1.75em;
 }

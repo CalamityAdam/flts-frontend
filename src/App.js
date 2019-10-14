@@ -11,9 +11,11 @@ import axios from 'axios';
 import './App.css';
 import { useStateValue } from './state';
 
-const APP_URL = 'http://localhost:3000';
+const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
+const FRONTEND_APP_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
 
 const App = props => {
+  console.log(process.env.NODE_ENV)
   const [slug, setSlug] = useState('');
   const [redirect, setRedirect] = useState('');
   const [expiration, setExpiration] = useState(5);
@@ -44,10 +46,10 @@ const App = props => {
   async function createRedirect(newShorten) {
     try {
       const { data } = await axios.post(
-        'http://localhost:4000/api/shorten/',
+        `${BACKEND_APP_URL}/api/shorten/`,
         newShorten,
       );
-      const newUrl = `${APP_URL}/${data.slug}`;
+      const newUrl = `${FRONTEND_APP_URL}/${data.slug}`;
       console.log('yay', data);
       console.log('new url: ', newUrl);
       setNewUrl(newUrl);

@@ -3,7 +3,12 @@ import axios from 'axios';
 import './App.css';
 import { useStateValue } from './state';
 
-const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
+const BACKEND_APP_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://flts-backend.herokuapp.com'
+  
+  
 const FRONTEND_APP_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
@@ -87,6 +92,7 @@ const App = props => {
     { value: 30, text: '30 mins' },
     { value: 60, text: '1 hour' },
     { value: 1440, text: '24 hours' },
+    { value: 10080, text: '1 week' },
   ];
 
   return (

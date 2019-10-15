@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { navigate } from '@reach/router';
 import { useStateValue } from './state';
 
-const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
+const BACKEND_APP_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://flts-backend.herokuapp.com'
 
 const Redirect = ({ slug }) => {
   const [, dispatch] = useStateValue();

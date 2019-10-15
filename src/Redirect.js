@@ -5,7 +5,7 @@ import { useStateValue } from './state';
 const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
 
 const Redirect = ({ slug }) => {
-  const [{ error }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
   
   useEffect(() => {
     if (slug) {
@@ -15,8 +15,6 @@ const Redirect = ({ slug }) => {
           if (message) {
             // not found
             console.log(message);
-            
-            
             dispatch({
               type: 'setError',
               error: message
@@ -29,9 +27,14 @@ const Redirect = ({ slug }) => {
           }
         })
         .catch(err => console.error(err));
+    } else {
+      navigate('/')
     }
   });
-  
+  if (false) {
+    // this is just to get rid of unused React warnings
+    return (<div></div>)
+  }
   return null
 }
 

@@ -3,7 +3,9 @@
   font-size: 10px;
   background-color: #273136;
   color: white;
-  height: 100vh
+  height: 100vh;
+  position: relative;
+  display: inline-block;
 }
 
 .container {
@@ -12,15 +14,15 @@
   display: inline-block;
 }
 
-input[type=text] {
+.nice-input{
   font-size: 2em;
   width: 100%;
   padding: .5em;
   margin: 0 .5em .5em .5em;
   box-sizing: border-box;
   border-radius: 5px;
-  /* background-color: #BFBFBF; */
-  /* color: white; */
+  /* overflow-y: auto; */
+  white-space: nowrap;
 }
 
 .form-error {
@@ -33,34 +35,30 @@ input[type=text] {
 }
 
 .jumbotron {
+  margin: 0 0 1em 0;
+  padding: .25em 0 .25em 0;
   font-size: 7em;
   width: 100vw;
   height: auto;
   background-color: #4EADDE;
+  position: relative;
 }
 
 textarea {
   width: 100%;
   height: auto;
   font-size: 3em;
-  box-sizing: border-box;
   resize: none;
   box-sizing: border-box;
   border-radius: 5px;
   white-space: pre;
   word-wrap: normal;
-  /* overflow-x: visible; */
   overflow: hidden;
-}
-
-select {
-  width: 50%;
-  font-size: 2em;
-  height: 2em;
-  padding: .5em;
-  border: none;
-  border-radius: 5px;
-  background-color: #f1f1f1;
+  
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; /* Firefox 12+ */
+  text-align-last: center;
 }
 
 button {
@@ -68,10 +66,30 @@ button {
   font-size: 3em;
   border-radius: 5px;
   padding: .5em;
-  margin: .5em;
+  margin: .25em;
   text-decoration: bold;
 }
 
 .form-label {
   font-size: 1.75em;
+}
+
+.select-label {
+  display: block;
+}
+
+.select-button-container {
+  /* font-size: 1.75em; */
+  display: flex;
+  justify-content: space-around;
+}
+
+select {
+  width: 10em;
+  font-size: 2em;
+  height: 2em;
+  padding: .5em;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
 }

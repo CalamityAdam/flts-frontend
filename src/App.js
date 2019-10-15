@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  Form,
-  Button,
-  Container,
-  Dropdown,
-  Header,
-  TextArea,
-} from 'semantic-ui-react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import { useStateValue } from './state';
 
 const BACKEND_APP_URL = 'https://flts-backend.herokuapp.com';
-const FRONTEND_APP_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://adumb.dev'
+const FRONTEND_APP_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://adumb.dev';
 
 const App = props => {
   const [slug, setSlug] = useState('');
@@ -72,7 +67,6 @@ const App = props => {
       redirect,
       expiration,
     };
-    console.log(newRedirect);
     createRedirect(newRedirect);
   }
 
@@ -97,53 +91,68 @@ const App = props => {
 
   return (
     <div className="App">
-      <h1 className="jumbotron">Fix That Link, Shorter</h1>
+      <h1 className="jumbotron" >Make Short Links</h1>
       {error && <h1 className="h1-error">{error}</h1>}
       <div className="container">
         {!newUrl ? (
           // don't show the form if we got a new URL just made
           <div className="main-form">
             <form onSubmit={handleSubmit}>
-              <label className="form-label" htmlFor="url">URL to shorten</label>
+              <label className="form-label" htmlFor="url">
+                URL to shorten
+              </label>
               <input
-                className={error === 'URL not valid' ? 'form-error' : ''}
-                type="text"
+                className={`nice-input ${error === 'URL not valid' ? 'form-error' : ''}`}
+                type="textarea"
                 name="url"
                 onChange={(e, data) => setRedirect(e.target.value)}
                 label="URL to shorten:"
                 placeholder="https://..."
               />
-              <label className="form-label" htmlFor="slug">Custom /name</label>
+              <label className="form-label" htmlFor="slug">
+                Custom /name
+              </label>
               <input
+                className="nice-input"
                 type="text"
                 name="slug"
                 onChange={(e, data) => setSlug(e.target.value)}
                 label="preferred slug"
                 placeholder="Leave blank for random generated text"
               />
-              <select
-                onChange={(e, data) => setExpiration(e.target.value)}
-                value={expiration}
-              >
-                {options.map(({value, text}) => (
-                  <option key={Math.random()*100} value={value}>{text}</option>
-                ))}
-              </select>
-              <button type="submit">Shorten!</button>
+              <div className="select-button-container">
+                <div className="select-button">
+                  <label className="form-label select-label" htmlFor="expiration">
+                    Expiration
+                  </label>
+                  <select
+                    name="expiration"
+                    onChange={(e, data) => setExpiration(e.target.value)}
+                    value={expiration}
+                  >
+                    {options.map(({ value, text }) => (
+                      <option key={Math.random() * 100} value={value}>
+                        {text}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <button type="submit">Shorten!</button>
+              </div>
             </form>
           </div>
         ) : (
           // we got a URL!
           <>
-            <Header as="h1" color="blue">
+            <h1>
               NICE!
-            </Header>
+            </h1>
             <form>
               <textarea ref={textAreaRef} value={newUrl} readOnly />
               {document.queryCommandSupported('copy') && (
-                <Button onClick={copyToClipboard} disabled={copySuccess}>
+                <button onClick={copyToClipboard} disabled={copySuccess}>
                   {copySuccess ? 'Copied!' : 'Copy to clipboard'}
-                </Button>
+                </button>
               )}
             </form>
           </>

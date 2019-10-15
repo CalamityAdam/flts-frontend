@@ -29,9 +29,9 @@ const reducer = (state, action) => {
 ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
     <Router>
-      {/* <Redirect path='/:slug'/> */}
-      {/* <NotFound path='notfound' /> */}
-      <App />
+      <Redirect path='/:slug' />
+      <NotFound path='notfound' />
+      <App default path='/' />
     </Router>
   </StateProvider>,
   document.getElementById('root')

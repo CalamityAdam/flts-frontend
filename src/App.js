@@ -25,19 +25,13 @@ const App = props => {
   
   const [{ error, user }, dispatch] = useStateValue();
   const loggedIn = !!user.id;
-  
-    /**
-   * dispatch setUser
-   */
-
 
   /**
-   * componentDidMount
+   * "componentDidMount"
    * check if loggedIn user
    */
   useEffect(() => {
     function setUser(user) {
-      console.log('got here', user)
       dispatch({
         type: 'getUser',
         user,
@@ -47,7 +41,6 @@ const App = props => {
       try {
         if (!user.id) {
           const res = await axios.get(`${BACKEND_APP_URL}/auth/me`)
-          console.log('response: ', res)
           if (res.data) {
             setUser(res.data)
           }
@@ -105,18 +98,21 @@ const App = props => {
   }
 
   /**
-   * handle submit
+   * handle submit and build the new redirect object
    */
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(user)
     if (!isValidUrl(redirect)) return;
     setError('');
     const newRedirect = {
       slug,
       redirect,
       expiration,
+      userId: user.id || null,
     };
+    // if (loggedIn) {
+    //   newRedirect.userId = user.id
+    // }
     createRedirect(newRedirect);
   }
 

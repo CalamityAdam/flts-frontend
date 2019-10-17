@@ -17,13 +17,14 @@ const FRONTEND_APP_URL =
 const App = props => {
   const [slug, setSlug] = useState('');
   const [redirect, setRedirect] = useState('');
-  const [expiration, setExpiration] = useState(5);
   const [newUrl, setNewUrl] = useState('');
+  const [expiration, setExpiration] = useState(5);
   const [copySuccess, setCopySuccess] = useState(false);
   // set up the ref (which will later be re-assigned) from which to copy to clipboard
   const textAreaRef = useRef(null);
-
+  
   const [{ error, user }, dispatch] = useStateValue();
+  const loggedIn = !!user.id;
   
     /**
    * dispatch setUser
@@ -137,13 +138,18 @@ const App = props => {
    */
   const options = [
     { value: 5, text: '5 mins' },
-    { value: 30, text: '30 mins' },
     { value: 60, text: '1 hour' },
-    { value: 1440, text: '24 hours' },
-    { value: 10080, text: '1 week' },
+    { value: 720, text: '12 hours' },
+    { value: 1440, text: '1 day' },
   ];
+  if (loggedIn) {
+    // only logged in users can have permanent links
+    options.push({
+      value: 0,
+      text: 'permanant',
+    })
+  }
   
-  console.log(' THE USER ', user)
   return (
     <div className="App">
       <h1 className="jumbotron" >Make Short Links</h1>
@@ -192,7 +198,10 @@ const App = props => {
                     ))}
                   </select>
                 </div>
-                <button type="submit">Shorten!</button>
+                <button 
+                  className="fancy-button" 
+                  type="submit"
+                >Shorten!</button>
               </div>
             </form>
           </div>

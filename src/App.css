@@ -61,7 +61,7 @@ textarea {
   text-align-last: center;
 }
 
-button {
+.fancy-button {
   width: auto;
   font-size: 3em;
   border-radius: 5px;

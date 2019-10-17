@@ -84,8 +84,6 @@ const App = props => {
         newShorten,
       );
       const newUrl = `${FRONTEND_APP_URL}/${data.slug}`;
-      // console.log('yay', data);
-      // console.log('new url: ', newUrl);
       setNewUrl(newUrl);
     } catch (err) {
       if (err.response) {

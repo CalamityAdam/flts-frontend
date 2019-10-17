@@ -8,11 +8,7 @@ import { StateProvider } from './state';
 import Redirect from './Redirect';
 import Login from './Login';
 import Signup from './Signup';
-
-/**
- * establishes socket connection
- */
-import './socket';
+import Logout from './Logout';
 
 const defaultUser = {};
 
@@ -50,6 +46,7 @@ ReactDOM.render(
       <Redirect path='/:slug' />
       <Login path='/login' />
       <Signup path='/signup' />
+      <Logout path='/logout' />
       <App default path='/' />
     </Router>
   </StateProvider>,

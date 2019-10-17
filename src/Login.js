@@ -22,7 +22,6 @@ const Login = props => {
         password,
       };
       const res = await axios.post(`${BACKEND_APP_URL}/auth/login`, user);
-      console.log('login res: ', res.data);
       dispatch({
         type: 'getUser',
         user: res.data
@@ -30,7 +29,8 @@ const Login = props => {
       navigate('/')
     } catch (err) {
       // incorrect login..
-      console.log('lol ', err);
+      // TODO display message
+      console.log(err);
     }
   }
 

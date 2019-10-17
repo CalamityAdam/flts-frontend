@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { navigate } from '@reach/router';
+import { useStateValue } from './state';
 
 const BACKEND_APP_URL =
   process.env.NODE_ENV === 'development'
@@ -9,6 +11,7 @@ const BACKEND_APP_URL =
 const Signup = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [, dispatch] = useStateValue();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,8 +21,13 @@ const Signup = props => {
         password,
       };
       const res = await axios.post(`${BACKEND_APP_URL}/auth/signup`, user);
-      console.log('signup res: ', res.data)
+      dispatch({
+        type: 'getUser',
+        user: res.data
+      })
+      navigate('/')
     } catch (err) {
+      // TODO display mesasge
       console.log(err);
     }
   }

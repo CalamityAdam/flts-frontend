@@ -6,11 +6,19 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './state';
 import Redirect from './Redirect';
-import NotFound from './NotFound';
+import Login from './Login';
+import Signup from './Signup';
 
+/**
+ * establishes socket connection
+ */
+import './socket';
+
+const defaultUser = {};
 
 const initialState = {
   error: '',
+  user: defaultUser,
 };
 
 const reducer = (state, action) => {
@@ -18,7 +26,17 @@ const reducer = (state, action) => {
     case 'setError':
       return {
         ...state,
-        error: action.error
+        error: action.error,
+      }
+    case 'getUser':
+      return {
+        ...state,
+        user: action.user,
+      }
+    case 'removeUser':
+      return {
+        ...state,
+        user: defaultUser,
       }
     default:
       return state;
@@ -30,7 +48,8 @@ ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
     <Router>
       <Redirect path='/:slug' />
-      <NotFound path='notfound' />
+      <Login path='/login' />
+      <Signup path='/signup' />
       <App default path='/' />
     </Router>
   </StateProvider>,

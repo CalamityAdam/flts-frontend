@@ -1,14 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import { useStateValue } from './state';
+axios.defaults.withCredentials = true;
 
 const BACKEND_APP_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:4000'
-    : 'https://flts-backend.herokuapp.com'
-  
-  
+    : 'https://flts-backend.herokuapp.com';
+
 const FRONTEND_APP_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
@@ -23,9 +23,46 @@ const App = props => {
   // set up the ref (which will later be re-assigned) from which to copy to clipboard
   const textAreaRef = useRef(null);
 
-  const [{ error }, dispatch] = useStateValue();
+  const [{ error, user }, dispatch] = useStateValue();
+  
+    /**
+   * dispatch setUser
+   */
 
-  // dispatch error
+
+  /**
+   * componentDidMount
+   * check if loggedIn user
+   */
+  useEffect(() => {
+    function setUser(user) {
+      console.log('got here', user)
+      dispatch({
+        type: 'getUser',
+        user,
+      })
+    }
+    const checkIfUser = async () => { 
+      try {
+        if (!user.id) {
+          const res = await axios.get(`${BACKEND_APP_URL}/auth/me`)
+          console.log('response: ', res)
+          if (res.data) {
+            setUser(res.data)
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    checkIfUser();
+  }, [user.id, dispatch]);
+  
+
+  
+  /**
+   * dispatch error
+   */
   function setError(newError) {
     dispatch({
       type: 'setError',
@@ -33,7 +70,9 @@ const App = props => {
     });
   }
 
-  // execute the copy to clipboard
+  /**
+   * execute the copy to clipboard
+   */
   function copyToClipboard(e) {
     textAreaRef.current.select();
     document.execCommand('copy');
@@ -41,7 +80,9 @@ const App = props => {
     setCopySuccess(true);
   }
 
-  // send post req to create the new redirect
+  /**
+   * send post req to create the new redirect
+   */
   async function createRedirect(newShorten) {
     try {
       const { data } = await axios.post(
@@ -62,9 +103,12 @@ const App = props => {
     }
   }
 
-  // handle submit
+  /**
+   * handle submit
+   */
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(user)
     if (!isValidUrl(redirect)) return;
     setError('');
     const newRedirect = {
@@ -75,7 +119,9 @@ const App = props => {
     createRedirect(newRedirect);
   }
 
-  // validate if url entered is valid
+  /**
+   * validate if url entered is valid
+   */
   function isValidUrl(string) {
     try {
       new URL(string);
@@ -86,7 +132,9 @@ const App = props => {
     }
   }
 
-  // expiration time settings
+  /**
+   * expiration time settings
+   */
   const options = [
     { value: 5, text: '5 mins' },
     { value: 30, text: '30 mins' },
@@ -94,7 +142,8 @@ const App = props => {
     { value: 1440, text: '24 hours' },
     { value: 10080, text: '1 week' },
   ];
-
+  
+  console.log(' THE USER ', user)
   return (
     <div className="App">
       <h1 className="jumbotron" >Make Short Links</h1>

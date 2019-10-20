@@ -24,7 +24,7 @@ const CopyToClipboard = ({ newUrl, ...rest }) => {
         <textarea ref={textAreaRef} value={newUrl} readOnly />
         {document.queryCommandSupported('copy') && (
           <button 
-            className="nice-button" 
+            className="fancy-button" 
             onClick={copyToClipboard} 
             disabled={copySuccess}
           >

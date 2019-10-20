@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { navigate } from '@reach/router';
-import { useStateValue } from './state';
+import { useStateValue } from '../state';
 
 const BACKEND_APP_URL =
   process.env.NODE_ENV === 'development'

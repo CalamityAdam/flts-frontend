@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { navigate } from '@reach/router';
-import { useStateValue } from './state';
+import { useStateValue } from '../state';
 axios.defaults.withCredentials = true;
 
 const BACKEND_APP_URL =

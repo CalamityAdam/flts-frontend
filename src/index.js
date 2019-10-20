@@ -5,16 +5,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './state';
-import Redirect from './Redirect';
-import Login from './Login';
-import Signup from './Signup';
-import Logout from './Logout';
+import { Redirect, Login, Signup, Logout } from './components';
 
 const defaultUser = {};
 
 const initialState = {
   error: '',
   user: defaultUser,
+  newUrl: '',
 };
 
 const reducer = (state, action) => {
@@ -28,6 +26,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+      }
+    case 'setNewUrl':
+      return {
+        ...state,
+        newUrl: action.newUrl,
       }
     case 'removeUser':
       return {

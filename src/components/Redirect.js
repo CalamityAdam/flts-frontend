@@ -17,7 +17,6 @@ const Redirect = ({ slug }) => {
         .then(({ redirect, message }) => {
           if (message) {
             // not found
-            console.log(message);
             dispatch({
               type: 'setError',
               error: message

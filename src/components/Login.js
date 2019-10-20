@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { navigate } from '@reach/router';
 import { useStateValue } from '../state';
+import { BACKEND_APP_URL } from '../lib/endpoints';
 axios.defaults.withCredentials = true;
-
-const BACKEND_APP_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://flts-backend.herokuapp.com';
 
 const Login = props => {
   const [email, setEmail] = useState('');

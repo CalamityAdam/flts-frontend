@@ -3,12 +3,8 @@ import './App.css';
 import axios from 'axios';
 import { useStateValue } from './state';
 import { LinkForm, CopyToClipboard } from './components';
+import { BACKEND_APP_URL } from './lib/endpoints';
 axios.defaults.withCredentials = true;
-
-const BACKEND_APP_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://flts-backend.herokuapp.com';
 
 const App = props => {
   const [{ error, user, newUrl }, dispatch] = useStateValue();

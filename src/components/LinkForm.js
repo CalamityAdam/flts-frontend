@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useStateValue } from '../state';
+import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
 axios.defaults.withCredentials = true;
-
-const BACKEND_APP_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000'
-    : 'https://flts-backend.herokuapp.com';
-
-const FRONTEND_APP_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://adumb.dev';
-
 
 const LinkForm = props => {
   const [slug, setSlug] = useState('');

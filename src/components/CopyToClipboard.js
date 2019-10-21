@@ -6,7 +6,7 @@ import FancyButton from './styles/FancyButton';
 const FancyTextarea = styled.textarea`
   width: 100%;
   height: auto;
-  font-size: 3em;
+  font-size: 3rem;
   resize: none;
   box-sizing: border-box;
   border-radius: 5px;

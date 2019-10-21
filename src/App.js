@@ -3,7 +3,9 @@ import './App.css';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useStateValue } from './state';
-import { LinkForm, CopyToClipboard } from './components';
+import { Navbar } from './components';
+import Error from './components/styles/Error';
+import Routes from './Routes';
 import { BACKEND_APP_URL } from './lib/endpoints';
 axios.defaults.withCredentials = true;
 
@@ -21,39 +23,20 @@ const AppContainer = styled.div`
 const Container = styled.div`
   text-align: center;
   display: inline-block;
-  /* width: 450px; */
+  width: 50vw;
   @media (max-width: 1300px) {
-    width: 50vw;
+    width: 65vw;
   }
-  @media (max-width: 900px) {
+  /* @media (max-width: 900px) {
     width: 75vw;
-  }
+  } */
   @media (max-width: 700px) {
     width: 100vw;
   }
 `;
 
-const Jumbotron = styled.h1`
-  margin: 0 0 .75em 0;
-  padding: .25em 0 .25em 0;
-  font-size: 7em;
-  @media (max-width: 700px) {
-    font-size: 5em;
-  }
-  width: 100vw;
-  height: auto;
-  background-color: #4EADDE;
-  position: relative;
-`;
-
-const Error = styled.h1`
-  font-size: 3em;
-  color: red;
-`;
-
-const App = props => {
-  const [{ error, user, newUrl }, dispatch] = useStateValue();
-
+function App(props) {
+  const [{ error, user }, dispatch] = useStateValue();
   /**
    * "componentDidMount"
    * check if loggedIn user
@@ -65,7 +48,7 @@ const App = props => {
         user,
       })
     }
-    const checkIfUser = async () => { 
+    async function checkIfUser() {
       try {
         if (!user.id) {
           const res = await axios.get(`${BACKEND_APP_URL}/auth/me`)
@@ -82,14 +65,10 @@ const App = props => {
 
   return (
     <AppContainer>
-      <Jumbotron>Make Short Links</Jumbotron>
+      <Navbar />
       {error && <Error>{error}</Error>}
       <Container>
-        {!newUrl ? (
-          <LinkForm />
-        ) : (
-          <CopyToClipboard newUrl={newUrl} />
-        )}
+        <Routes />
       </Container>
     </AppContainer>
   );

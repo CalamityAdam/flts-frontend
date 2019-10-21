@@ -3,19 +3,17 @@ import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
+import { reservedNames } from '../lib/reservedNames';
 import FancyButton from './styles/FancyButton';
+import Label from './styles/Label';
 axios.defaults.withCredentials = true;
-
-const Label = styled.label`
-  font-size: 1.75em;
-`;
 
 const NiceInput = styled.input`
   /* font-family: 'Major Mono Display', monospace; */
-  font-size: 2em;
+  font-size: 2rem;
   width: 95%;
-  padding: .5em;
-  margin: 0 .5em .5em .5em;
+  padding: .5rem;
+  margin: 0 .5rem .5rem .5rem;
   box-sizing: border-box;
   border-radius: 5px;
   white-space: nowrap;
@@ -26,15 +24,15 @@ const NiceInput = styled.input`
 `;
 
 const SelectLabel = styled.label`
-  font-size: 1.75em;
+  font-size: 1.75rem;
   display: block;
 `;
 
 const Select = styled.select`
-  width: 10em;
-  font-size: 2em;
-  height: 2em;
-  padding: .5em;
+  width: 10rem;
+  font-size: 1.5rem;
+  height: 2rem;
+  padding: .5rem;
   border: none;
   border-radius: 5px;
   background-color: #f1f1f1;
@@ -70,7 +68,6 @@ const LinkForm = props => {
       text: 'permanant',
     });
   }
-
 
   /**
    * dispatch error
@@ -112,6 +109,7 @@ const LinkForm = props => {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isValidUrl(redirect)) return;
+    if (!isNameValid(slug)) return;
     setError('');
     const newRedirect = {
       slug,
@@ -134,6 +132,15 @@ const LinkForm = props => {
       return false;
     }
   }
+  
+  function isNameValid(string) {
+    if (reservedNames.includes(string)) {
+      setError('custom name taken')
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   return (
     <div className="main-form">
@@ -154,11 +161,12 @@ const LinkForm = props => {
           Custom /name
         </Label>
         <NiceInput
+          error={error === 'custom name taken'}
           type="text"
           name="slug"
           onChange={(e, data) => setSlug(e.target.value)}
           label="preferred slug"
-          placeholder="Leave blank for random generated text"
+          placeholder="Leave blank for random"
         />
         <SelectContainer>
           <div className="select-button">

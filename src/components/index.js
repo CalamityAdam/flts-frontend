@@ -4,4 +4,7 @@ export { default as Login } from './Login';
 export { default as Logout } from './Logout';
 export { default as Redirect } from './Redirect';
 export { default as Signup } from './Signup';
-export { default as Profile } from './Profile';
+export { default as Links } from './Links';
+export { default as Navbar } from './Navbar';
+export { default as ShortenerContainer } from './ShortenerContainer';
+export { default as Auth } from './Auth';

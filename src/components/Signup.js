@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { navigate } from '@reach/router';
 import { useStateValue } from '../state';
+import NiceInput from './styles/NiceInput';
+import Label from './styles/Label';
+import FancyButton from './styles/FancyButton';
 
 const BACKEND_APP_URL =
   process.env.NODE_ENV === 'development'
@@ -34,19 +37,19 @@ const Signup = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email:</label>
-      <input
+      <Label htmlFor="email">Email:</Label>
+      <NiceInput
         type="text"
         name="email"
         onChange={e => setEmail(e.target.value)}
       />
-      <label htmlFor="password">Password:</label>
-      <input
+      <Label htmlFor="password">Password:</Label>
+      <NiceInput
         type="password"
         name="email"
         onChange={e => setPassword(e.target.value)}
       />
-      <button type="submit">signup!</button>
+      <FancyButton type="submit">sign up!</FancyButton>
     </form>
   );
 };

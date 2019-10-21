@@ -3,6 +3,9 @@ import axios from 'axios';
 import { navigate } from '@reach/router';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL } from '../lib/endpoints';
+import Label from './styles/Label';
+import NiceInput from './styles/NiceInput';
+import FancyButton from './styles/FancyButton';
 axios.defaults.withCredentials = true;
 
 const Login = props => {
@@ -32,19 +35,19 @@ const Login = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email:</label>
-      <input
+      <Label htmlFor="email">Email:</Label>
+      <NiceInput
         type="text"
         name="email"
         onChange={e => setEmail(e.target.value)}
       />
-      <label htmlFor="password">Password:</label>
-      <input
+      <Label htmlFor="password">Password:</Label>
+      <NiceInput
         type="password"
         name="email"
         onChange={e => setPassword(e.target.value)}
       />
-      <button type="submit">login!</button>
+      <FancyButton type="submit">login!</FancyButton>
     </form>
   );
 };

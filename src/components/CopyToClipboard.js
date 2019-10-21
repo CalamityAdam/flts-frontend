@@ -1,4 +1,41 @@
 import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
+import FancyButton from './styles/FancyButton';
+
+
+const FancyTextarea = styled.textarea`
+  width: 100%;
+  height: auto;
+  font-size: 3em;
+  resize: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  white-space: pre;
+  word-wrap: normal;
+  overflow: hidden;
+  
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; 
+  text-align-last: center;
+`;
+
+/* textarea {
+  width: 100%;
+  height: auto;
+  font-size: 3em;
+  resize: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  white-space: pre;
+  word-wrap: normal;
+  overflow: hidden;
+  
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; 
+  text-align-last: center;
+} */
 
 const CopyToClipboard = ({ newUrl, ...rest }) => {
   
@@ -21,15 +58,14 @@ const CopyToClipboard = ({ newUrl, ...rest }) => {
         NICE!
       </h1>
       <form>
-        <textarea ref={textAreaRef} value={newUrl} readOnly />
+        <FancyTextarea ref={textAreaRef} value={newUrl} readOnly />
         {document.queryCommandSupported('copy') && (
-          <button 
-            className="fancy-button" 
+          <FancyButton
             onClick={copyToClipboard} 
             disabled={copySuccess}
           >
             {copySuccess ? 'Copied!' : 'Copy to clipboard'}
-          </button>
+          </FancyButton>
         )}
       </form>
     </div>

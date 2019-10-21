@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
   font-size: 10px;
   background-color: #273136;
@@ -6,35 +6,34 @@
   height: 100vh;
   position: relative;
   display: inline-block;
-}
-
+} */
+/* 
 .container {
   text-align: center;
   width: 450px;
   display: inline-block;
-}
+} */
 
-.nice-input{
+/* .nice-input{
   font-size: 2em;
   width: 100%;
   padding: .5em;
   margin: 0 .5em .5em .5em;
   box-sizing: border-box;
   border-radius: 5px;
-  /* overflow-y: auto; */
   white-space: nowrap;
-}
+} */
 
-.form-error {
+/* .form-error {
   border: 3px solid red;
-}
+} */
 
-.h1-error {
+/* .h1-error {
   font-size: 3em;
   color: red;
-}
+} */
 
-.jumbotron {
+/* .jumbotron {
   margin: 0 0 1em 0;
   padding: .25em 0 .25em 0;
   font-size: 7em;
@@ -42,9 +41,9 @@
   height: auto;
   background-color: #4EADDE;
   position: relative;
-}
+} */
 
-textarea {
+/* textarea {
   width: 100%;
   height: auto;
   font-size: 3em;
@@ -57,34 +56,33 @@ textarea {
   
   white-space: normal;
   text-align: justify;
-  -moz-text-align-last: center; /* Firefox 12+ */
+  -moz-text-align-last: center; 
   text-align-last: center;
-}
+} */
 
-.fancy-button {
+/* .fancy-button {
   width: auto;
   font-size: 3em;
   border-radius: 5px;
   padding: .5em;
   margin: .25em;
   text-decoration: bold;
-}
+} */
 
-.form-label {
+/* .form-label {
   font-size: 1.75em;
-}
+} */
 
-.select-label {
+/* .select-label {
   display: block;
-}
+} */
 
-.select-button-container {
-  /* font-size: 1.75em; */
+/* .select-button-container {
   display: flex;
   justify-content: space-around;
-}
+} */
 
-select {
+/* select {
   width: 10em;
   font-size: 2em;
   height: 2em;
@@ -92,4 +90,4 @@ select {
   border: none;
   border-radius: 5px;
   background-color: #f1f1f1;
-}
+} */

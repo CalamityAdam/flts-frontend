@@ -4,3 +4,4 @@ export { default as Login } from './Login';
 export { default as Logout } from './Logout';
 export { default as Redirect } from './Redirect';
 export { default as Signup } from './Signup';
+export { default as Profile } from './Profile';

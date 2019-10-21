@@ -1,8 +1,50 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styled, { css } from 'styled-components';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
+import FancyButton from './styles/FancyButton';
 axios.defaults.withCredentials = true;
+
+const Label = styled.label`
+  font-size: 1.75em;
+`;
+
+const NiceInput = styled.input`
+  /* font-family: 'Major Mono Display', monospace; */
+  font-size: 2em;
+  width: 95%;
+  padding: .5em;
+  margin: 0 .5em .5em .5em;
+  box-sizing: border-box;
+  border-radius: 5px;
+  white-space: nowrap;
+  
+  ${props => props.error && css`
+    border: 3px solid red;
+  `}
+`;
+
+const SelectLabel = styled.label`
+  font-size: 1.75em;
+  display: block;
+`;
+
+const Select = styled.select`
+  width: 10em;
+  font-size: 2em;
+  height: 2em;
+  padding: .5em;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 
 const LinkForm = props => {
   const [slug, setSlug] = useState('');
@@ -96,43 +138,34 @@ const LinkForm = props => {
   return (
     <div className="main-form">
       <form onSubmit={handleSubmit}>
-        <label 
-          className="form-label" 
-          htmlFor="url"
-        >
+        <Label htmlFor="url">
           URL to shorten
-        </label>
-        <input
-          className={`nice-input ${error === 'URL not valid' ? 'form-error' : ''}`}
+        </Label>
+        <NiceInput
+          // className={`nice-input ${error === 'URL not valid' ? 'form-error' : ''}`}
+          error={error === 'URL not valid'}
           type="textarea"
           name="url"
           onChange={(e, data) => setRedirect(e.target.value)}
           label="URL to shorten:"
           placeholder="https://..."
         />
-        <label 
-          className="form-label" 
-          htmlFor="slug"
-        >
+        <Label htmlFor="slug">
           Custom /name
-        </label>
-        <input
-          className="nice-input"
+        </Label>
+        <NiceInput
           type="text"
           name="slug"
           onChange={(e, data) => setSlug(e.target.value)}
           label="preferred slug"
           placeholder="Leave blank for random generated text"
         />
-        <div className="select-button-container">
+        <SelectContainer>
           <div className="select-button">
-            <label 
-              className="form-label select-label" 
-              htmlFor="expiration"
-            >
+            <SelectLabel htmlFor="expiration">
               Expiration
-            </label>
-            <select
+            </SelectLabel>
+            <Select
               name="expiration"
               onChange={(e, data) => setExpiration(e.target.value)}
               value={expiration}
@@ -142,15 +175,12 @@ const LinkForm = props => {
                   {text}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
-          <button
-            className="fancy-button"
-            type="submit"
-          >
+          <FancyButton type="submit">
             Shorten!
-          </button>
-        </div>
+          </FancyButton>
+        </SelectContainer>
       </form>
     </div>
   );

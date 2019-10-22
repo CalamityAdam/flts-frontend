@@ -29,15 +29,16 @@ const StyledHeader = styled.header`
 `;
 
 const Logo = styled.h1`
-  font-family: 'Poiret One';
+  font-family: 'Overlock', sans-serif;
+  font-weight: bold;
   font-size: 6rem;
   margin-top: 0;
   margin-bottom: 0;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
-  /* text-shadow: 1px 5px 5px #252E33; */
-  text-shadow: 0 0 10px black;
+  text-shadow: 1px 1px 10px #252E33;
+  text-align: center;
   @media (max-width: 1300px) {
     margin: 0;
     text-align: center;

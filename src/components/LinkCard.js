@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import differenceInHours from 'date-fns/differenceInHours'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { FRONTEND_APP_URL } from '../lib/endpoints'
 axios.defaults.withCredentials = true;
+
+const shortFrontendUrl = FRONTEND_APP_URL.split('//')[1];
 
 const CardWrapper = styled.div`
   font-family: 'ubuntu';
@@ -44,9 +46,10 @@ const Name = styled.span`
   font-size: 2.5rem;
 `;
 const DeleteButton = styled.button`
-  font-size: 1.5rem;
-  color: red;
-  background: transparent;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: white;
+  background: red;
   border: 2px solid red;
   border-radius: 10px;
   margin-left: 2rem;
@@ -57,6 +60,23 @@ const PrettySlug = styled.span`
   color: #FF7381;
   font-weight: bold;
   text-decoration: none;
+`;
+const PrettyLongLink = styled.textarea`
+  font-size: 1.25rem;
+  white-space: nowrap;
+  height: 1.75rem;
+  resize: none;
+  width: 50%;
+`;
+const CopyButton = styled.button`
+  color: white;
+  font-weight: 500;
+  font-size: 1.75rem;
+  background-color: #59C8FF;
+  border: 2px solid #59C8FF;
+  border-radius: 10px;
+  margin-left: 2rem;
+  position: relative;
 `;
 
 function LinkCard({ shorten, handleDelete }) {
@@ -87,16 +107,20 @@ function LinkCard({ shorten, handleDelete }) {
       <Group>
         <Title>name: </Title><Name>{slug}</Name>
         <span>
+          <CopyButton>
+            copy link
+          </CopyButton>
           <DeleteButton onClick={() => handleDelete(id)}>
             delete
           </DeleteButton>
         </span>
       </Group>
       <Group>
-        <Title>short link: </Title><a href={`${FRONTEND_APP_URL}/${slug}`}>{FRONTEND_APP_URL}/<PrettySlug>{slug}</PrettySlug></a>
+        <Title>short link: </Title><a href={`${FRONTEND_APP_URL}/${slug}`}>{shortFrontendUrl}/<PrettySlug>{slug}</PrettySlug></a>
       </Group>
       <Group>
-        <Title>long link: </Title><a href={redirect}>{redirect}</a>
+        <Title>long link: </Title>
+        <PrettyLongLink value={redirect} readOnly />
       </Group>
       <Group>
         <Title>expires: </Title>{displayExpiration()}

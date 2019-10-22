@@ -13,7 +13,7 @@ const AppContainer = styled.div`
   text-align: center;
   font-size: 10px;
   /* background-color: #273136; */
-  color: white;
+  color: black;
   /* height: 100vh; */
   width: 100vw;
   position: relative;
@@ -21,6 +21,12 @@ const AppContainer = styled.div`
 `;
 
 const Container = styled.div`
+  border: 2px solid whitesmoke;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 4rem;
+  padding: 2rem 1.5rem 2rem 1.5rem;
+  box-shadow: 6px 6px 8px #273136;
   text-align: center;
   display: inline-block;
   width: 50vw;
@@ -64,7 +70,7 @@ function App(props) {
   }, [user.id, dispatch]);
 
   return (
-    <AppContainer>
+    <AppContainer className="main app container">
       <Navbar />
       {error && <Error>{error}</Error>}
       <Container>

@@ -1,6 +1,7 @@
 body {
   font-size: 10px;
-  background-color: #273136;
+  background-color: #405058;
+  text-transform: uppercase;
   margin: 0;
   font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -21,4 +22,5 @@ color pallette:
   #59C8FF
   #CCC733
   #B3AE36
+  #7381ff
 */

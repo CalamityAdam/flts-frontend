@@ -35,7 +35,7 @@ const Redirect = ({ slug }) => {
   });
   if (false) {
     // this is just to get rid of unused React warnings
-    return (<div></div>)
+    return (<h1>You are being redirected...</h1>)
   }
   return null
 }

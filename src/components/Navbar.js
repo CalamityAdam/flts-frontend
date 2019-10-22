@@ -7,6 +7,7 @@ const StyledHeader = styled.header`
   background-color: #59C8FF;
   margin-bottom: 10px;
   padding-bottom: 5px;
+  width: 100vw;
   a {
     text-decoration: none;
     color: white;
@@ -29,20 +30,28 @@ const StyledHeader = styled.header`
 `;
 
 const Logo = styled.h1`
-  font-family: 'Overlock', sans-serif;
-  font-weight: bold;
+  color: whitesmoke;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
   font-size: 6rem;
   margin-top: 0;
   margin-bottom: 0;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
-  text-shadow: 1px 1px 10px #252E33;
+  letter-spacing: 2px
+  text-shadow: -2px 1px 5px black;
   text-align: center;
   @media (max-width: 1300px) {
     margin: 0;
     text-align: center;
     font-size: 6rem;
+    letter-spacing: 2px
+  }
+  @media (max-width: 700px) {
+    font-size: 2rem;
+    letter-spacing: 2px
   }
 `;
 
@@ -56,6 +65,7 @@ const NavStyles = styled.ul`
   button {
     text-decoration: none;
     background-size: 1rem 1rem;
+    text-shadow: -1px 2px 0px whitesmoke;
     padding: 1rem 3rem;
     padding-top: 0;
     padding-bottom: 0;
@@ -93,6 +103,7 @@ const NavStyles = styled.ul`
         width: calc(100% - 8rem);
       }
       color: white;
+      text-shadow: -1px 2px 0px black;
       border-radius: 5px;
       @media (max-width: 1300px) {
         margin: 0;
@@ -106,6 +117,9 @@ const NavStyles = styled.ul`
     width: 100%;
     justify-content: center;
     font-size: 2rem;
+  }
+  @media (max-width: 700px) {
+    font-size: 1.5rem;
   }
 `;
 

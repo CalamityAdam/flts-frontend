@@ -12,9 +12,9 @@ axios.defaults.withCredentials = true;
 const AppContainer = styled.div`
   text-align: center;
   font-size: 10px;
-  background-color: #273136;
+  /* background-color: #273136; */
   color: white;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   position: relative;
   display: inline-block;

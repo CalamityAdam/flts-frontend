@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const NiceInput = styled.input`
-  /* font-family: 'Major Mono Display', monospace; */
+  font-family: 'Ubuntu', sans-serif;
   font-size: 2rem;
   width: 95%;
   padding: .5rem;

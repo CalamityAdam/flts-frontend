@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import { useStateValue } from '../state';
 
 const StyledHeader = styled.header`
-  background-color: #4EADDE;
+  background-color: #59C8FF;
   margin-bottom: 10px;
   padding-bottom: 5px;
   a {
@@ -29,15 +29,21 @@ const StyledHeader = styled.header`
 `;
 
 const Logo = styled.h1`
-  font-size: 4rem;
+  font-family: 'Poiret One';
+  font-size: 6rem;
+  margin-top: 0;
+  margin-bottom: 0;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
+  /* text-shadow: 1px 5px 5px #252E33; */
+  text-shadow: 0 0 10px black;
   @media (max-width: 1300px) {
     margin: 0;
     text-align: center;
+    font-size: 6rem;
   }
-  &:after {
+  /* &:after {
     content: '';
     width: 0;
     height: 2px;
@@ -48,17 +54,15 @@ const Logo = styled.h1`
     left: 50%;
     margin-top: 4.5rem;
     @media (max-width: 1300px) {
-      /* margin-top: 4rem; */
     }
   }
   &:hover {
     &:after {
       width: calc(100% - 4rem);
       @media (max-width: 1300px) {
-        /* width: calc(100% - 20rem); */
-        width: 50%;
+        display: none;
       }
-    }
+    } */
   }
 `;
 
@@ -108,12 +112,13 @@ const NavStyles = styled.ul`
       &:after {
         width: calc(100% - 8rem);
       }
+      color: white;
       border-radius: 5px;
       @media (max-width: 1300px) {
         margin: 0;
       }
       /* background-color: #273136; */
-      color: white;
+      /* color: white; */
       transition: .25s ease-in-out;
     }
   }
@@ -136,12 +141,12 @@ function Navbar(props) {
         <NavStyles>
           {loggedIn && (
             <>
-            <Link to="/links">
+            <Link to="/profile">
               my links
             </Link>
-            <Link to="/logout">
+            {/* <Link to="/logout">
               logout
-            </Link>
+            </Link> */}
             </>
           )}
           {!loggedIn && (

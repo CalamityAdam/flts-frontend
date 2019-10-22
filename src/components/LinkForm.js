@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { useStateValue } from '../state';
@@ -29,6 +29,7 @@ const SelectLabel = styled.label`
 `;
 
 const Select = styled.select`
+  text-align: center;
   width: 10rem;
   font-size: 1.5rem;
   height: 2rem;
@@ -47,10 +48,16 @@ const SelectContainer = styled.div`
 const LinkForm = props => {
   const [slug, setSlug] = useState('');
   const [redirect, setRedirect] = useState('');
-  const [expiration, setExpiration] = useState(5);
+  const [expiration, setExpiration] = useState(720);
   
   const [{ error, user }, dispatch] = useStateValue();
   const loggedIn = !!user.id;
+  useEffect(() => {
+    if (loggedIn) {
+      setExpiration(0)
+    }
+  }, [loggedIn])
+  
   
   /**
    * expiration time settings
@@ -65,7 +72,7 @@ const LinkForm = props => {
   if (loggedIn) {
     options.push({
       value: 0,
-      text: 'permanant',
+      text: 'Permanent',
     });
   }
 

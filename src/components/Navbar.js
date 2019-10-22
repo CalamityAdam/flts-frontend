@@ -43,27 +43,6 @@ const Logo = styled.h1`
     text-align: center;
     font-size: 6rem;
   }
-  /* &:after {
-    content: '';
-    width: 0;
-    height: 2px;
-    background: black;
-    position: absolute;
-    transform: translateX(-50%);
-    transition: width .4s;
-    left: 50%;
-    margin-top: 4.5rem;
-    @media (max-width: 1300px) {
-    }
-  }
-  &:hover {
-    &:after {
-      width: calc(100% - 4rem);
-      @media (max-width: 1300px) {
-        display: none;
-      }
-    } */
-  }
 `;
 
 const NavStyles = styled.ul`
@@ -136,21 +115,13 @@ function Navbar(props) {
     <StyledHeader>
       <div className="bar">
         <Link to="/">
-          <Logo>Make Short Links</Logo>
+          <Logo>Sisk Short Links</Logo>
         </Link>
         <NavStyles>
           {loggedIn && (
-            <>
             <Link to="/profile">
               my links
             </Link>
-            {/* <Link to="/logout">
-              logout
-            </Link> */}
-            </>
-          )}
-          {!loggedIn && (
-              <Link to='auth'>sign in</Link>
           )}
         </NavStyles>
       </div>

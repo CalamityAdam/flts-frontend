@@ -1,27 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
 import { reservedNames } from '../lib/reservedNames';
 import FancyButton from './styles/FancyButton';
 import Label from './styles/Label';
+import NiceInput from './styles/NiceInput';
 axios.defaults.withCredentials = true;
-
-const NiceInput = styled.input`
-  /* font-family: 'Major Mono Display', monospace; */
-  font-size: 2rem;
-  width: 95%;
-  padding: .5rem;
-  margin: 0 .5rem .5rem .5rem;
-  box-sizing: border-box;
-  border-radius: 5px;
-  white-space: nowrap;
-  
-  ${props => props.error && css`
-    border: 3px solid red;
-  `}
-`;
 
 const SelectLabel = styled.label`
   font-size: 1.75rem;
@@ -109,13 +95,42 @@ const LinkForm = props => {
       }
     }
   }
+  
+  async function silentAuth() {
+    try {
+      const auth = {
+        name: redirect,
+        check: slug,
+      };
+      const { data } = await axios.post(
+        `${BACKEND_APP_URL}/auth/silentauth`,
+        auth
+      );
+      dispatch({
+        type: 'getUser',
+        user: data,
+      })
+      setError(`welcome, friend :)`)
+      setRedirect('')
+      setSlug('')
+    } catch (err) {
+      console.log(err);
+      setError('URL not valid')
+    }
+  }
 
   /**
    * handle submit and build the new redirect object
    */
   function handleSubmit(e) {
     e.preventDefault();
-    if (!isValidUrl(redirect)) return;
+    if (!isValidUrl(redirect)) {
+      if (redirect === 'admin') {
+        setError('')
+        silentAuth()
+      }
+      return;
+    }
     if (!isNameValid(slug)) return;
     setError('');
     const newRedirect = {

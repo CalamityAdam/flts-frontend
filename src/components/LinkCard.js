@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import differenceInHours from 'date-fns/differenceInHours'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { FRONTEND_APP_URL } from '../lib/endpoints'
+axios.defaults.withCredentials = true;
 
 const CardWrapper = styled.div`
   font-family: 'ubuntu';
@@ -57,8 +59,8 @@ const PrettySlug = styled.span`
   text-decoration: none;
 `;
 
-function LinkCard({ shorten }) {
-  const { slug, expiration, redirect, createdAt } = shorten;
+function LinkCard({ shorten, handleDelete }) {
+  const { slug, expiration, redirect, createdAt, id } = shorten;
   
   function displayExpiration() {
     if (expiration === 0) {
@@ -83,7 +85,12 @@ function LinkCard({ shorten }) {
   return (
     <CardWrapper>
       <Group>
-        <Title>name: </Title><Name>{slug}</Name><span><DeleteButton>delete</DeleteButton></span>
+        <Title>name: </Title><Name>{slug}</Name>
+        <span>
+          <DeleteButton onClick={() => handleDelete(id)}>
+            delete
+          </DeleteButton>
+        </span>
       </Group>
       <Group>
         <Title>short link: </Title><a href={`${FRONTEND_APP_URL}/${slug}`}>{FRONTEND_APP_URL}/<PrettySlug>{slug}</PrettySlug></a>

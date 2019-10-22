@@ -5,7 +5,9 @@ const NiceInput = styled.input`
   font-size: 2rem;
   width: 95%;
   padding: .5rem;
-  margin: 0 .5rem .5rem .5rem;
+  margin: 1rem .5rem 1.5rem .5rem;
+  /* margin-top: 2rem;
+  margin-bottom: 2rem; */
   box-sizing: border-box;
   border-radius: 5px;
   white-space: nowrap;

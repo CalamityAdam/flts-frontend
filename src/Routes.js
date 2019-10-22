@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import { Profile, Logout, ShortenerContainer, Redirect, Auth } from './components';
+import { Profile, Logout, ShortenerContainer, Redirect, Auth, DoNotUse } from './components';
 
 function Routes(props) {
   return (
@@ -10,6 +10,7 @@ function Routes(props) {
       <Auth path='/auth' />
       <Logout path='/logout' />
       <Redirect path='/:slug' />
+      <DoNotUse path="/do-not-use-logout" />
     </Router>
   )
 };

@@ -9,3 +9,4 @@ export { default as Navbar } from './Navbar';
 export { default as ShortenerContainer } from './ShortenerContainer';
 export { default as Auth } from './Auth';
 export { default as LinkCard } from './LinkCard'
+export { default as DoNotUse } from './DoNotUse';

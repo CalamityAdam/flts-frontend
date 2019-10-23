@@ -53,11 +53,6 @@ function App(props) {
     checkIfUser();
   }, [user.id, dispatch]);
 
-  if (window.innerWidth < 700) {
-    return (
-      <h1 style={{backgroundColor: 'black', color: 'white', }}>text your link to <a href="sms:+13125613886">+13125613886</a></h1>
-    )
-  }
   return (
     <AppContainer>
       <Navbar />

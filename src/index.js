@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { navigate } from '@reach/router';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './state';
+import { BACKEND_APP_URL } from './lib/endpoints';
+import { useStateValue } from './state';
 
 const defaultUser = {};
 const initialState = {
@@ -39,10 +42,43 @@ const reducer = (state, action) => {
   }
 }
 
+function InitialRedirect() {
+  const [, dispatch] = useStateValue();
+
+  const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links'];
+  const path = window.location.pathname
+  .split('')
+  .filter(x => x !== '/')
+  .join('');
+  if (path && !allowedPaths.includes(path)) {
+  fetch(`${BACKEND_APP_URL}/api/shorten/${path}`)
+    .then(res => res.json())
+    .then(({ redirect, message }) => {
+      if (message) {
+        // not found
+        dispatch({
+          type: 'setError',
+          error: message
+        })
+        navigate('/')
+      } else {
+        // found a slug, REDIRECT!
+        // window.location.replace(redirect_to);
+        window.location.href = redirect;
+      }
+    })
+    .catch(err => console.error(err));
+    return (
+      <h1> being redirected</h1>
+    )
+  }
+  return null;
+}
 
 ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
-      <App />
+    <InitialRedirect />
+    <App />
   </StateProvider>,
   document.getElementById('root')
 );

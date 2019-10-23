@@ -81,6 +81,9 @@ const ShortenButton = styled.button`
   &:focus {
     outline: 0;
   };
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Group = styled.div`

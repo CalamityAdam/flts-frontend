@@ -55,7 +55,7 @@ function App(props) {
 
   if (window.innerWidth < 700) {
     return (
-      <h1 style={{backgroundColor: 'black', color: 'white', }}>text your link to +13125613886</h1>
+      <h1 style={{backgroundColor: 'black', color: 'white', }}>text your link to <a href="sms:+13125613886">+13125613886</a></h1>
     )
   }
   return (

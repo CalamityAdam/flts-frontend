@@ -5,6 +5,8 @@ import differenceInHours from 'date-fns/differenceInHours';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import { FRONTEND_APP_URL } from '../lib/endpoints';
 import { DeleteConfirm } from './index';
+import copy from '../images/copy-regular.svg'
+import trash from '../images/trash-solid.svg'
 axios.defaults.withCredentials = true;
 
 const shortFrontendUrl = FRONTEND_APP_URL.split('//')[1];
@@ -20,14 +22,11 @@ const CardWrapper = styled.div`
   font-family: 'ubuntu';
   font-size: 2rem;
   padding: 0.5rem 1.5rem;
-  /* text-align: left; */
   border: 1px solid black;
   border-radius: 10px;
   background-color: white;
   color: black;
-  /* margin-bottom: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem; */
+  box-shadow: 6px 6px 20px #273136, -6px -6px 20px #273136, -6px 6px 20px #273136, 6px -6px 20px #273136;
 `;
 
 const Group = styled.div`
@@ -43,16 +42,22 @@ const Group2 = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
   margin-top: 0.5rem;
+`;
+
+const Group3 = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const A = styled.a`
   color: black;
-  /* position: fixed; */
   justify-self: flex-start;
   margin-left: 1rem;
+  margin-right: 1rem;
 `;
 
 function LinkCard({ shorten, handleDelete }) {
@@ -79,18 +84,13 @@ function LinkCard({ shorten, handleDelete }) {
     );
     return `${timeLeftInHours} hour${timeLeftInHours > 1 ? 's' : ''}`;
   }
-  displayExpiration();
-  
-  function handleDeleteClick() {
-    setAwaitConfirm(prev => !prev)
-  }
   
   function confirm() {
-    cancel()
-    handleDelete(id)
+    cancel();
+    handleDelete(id);
   }
   function cancel() {
-    setAwaitConfirm(false)
+    setAwaitConfirm(false);
   }
   return (
     <CardWrapper>
@@ -98,26 +98,30 @@ function LinkCard({ shorten, handleDelete }) {
         <DeleteConfirm confirm={confirm} cancel={cancel} />
       ) : (
         <>
-          <Group>
+          <Group3>
             <Title>name: </Title>
             <Name>{slug}</Name>
-            <CopyButton>copy link</CopyButton>
-          </Group>
+          </Group3>
           <Group2>
             <Title>short link: </Title>
             <A href={`${FRONTEND_APP_URL}/${slug}`}>
               {shortFrontendUrl}/<PrettySlug>{slug}</PrettySlug>
             </A>
+            <CopyButton>
+              <img src={copy} alt="copy" width="30" height="30" />
+            </CopyButton>
           </Group2>
           <Group className="long-link">
             <Title>long link: </Title>
             <PrettyLongLink value={redirect} readOnly />
           </Group>
-          <Group>
+          <Group3>
             <Title>expires: </Title>
             {displayExpiration()}
-            <DeleteButton onClick={handleDeleteClick}>delete</DeleteButton>
-          </Group>
+            <DeleteButton onClick={() => setAwaitConfirm(true)}>
+              <img src={trash} alt="copy" style={{width: '30px', height: '30px', top: 'px'}} />
+            </DeleteButton>
+          </Group3>
         </>
       )}
     </CardWrapper>
@@ -137,18 +141,16 @@ const Title = styled.span`
 `;
 
 const Name = styled.span`
-  flex: 1;
+  /* flex: 1; */
   font-weight: bold;
   font-size: 2rem;
 `;
 const DeleteButton = styled.button`
-  text-transform: uppercase;
-  font-size: 1.75rem;
-  font-weight: 500;
   color: white;
-  background: red;
-  border: 2px solid red;
+  background: white;
+  border: 3px solid red;
   border-radius: 10px;
+  margin-left: 1rem;
   box-shadow: 2px 2px 5px #273136;
   box-shadow: 2px 2px 5px #273136;
   &:active {
@@ -157,6 +159,9 @@ const DeleteButton = styled.button`
   }
   &:focus {
     outline: 0;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 const PrettySlug = styled.span`
@@ -173,16 +178,17 @@ const PrettyLongLink = styled.textarea`
   resize: none;
   color: black;
   width: 100%;
-  /* width: 50%; */
 `;
 const CopyButton = styled.button`
-  text-transform: uppercase;
-  flex: 1;
+  /* text-transform: uppercase; */
+  /* flex: 1; */
+  width: auto;
   color: white;
-  font-weight: 500;
-  font-size: 1.75rem;
-  background-color: #59c8ff;
-  border: 2px solid #59c8ff;
+  /* font-weight: 500; */
+  /* font-size: 1.75rem; */
+  background-color: white;
+  border: 3px solid #59c8ff;
+  padding-top: 2px;
   border-radius: 10px;
   box-shadow: 2px 2px 5px #273136;
   &:active {
@@ -191,5 +197,8 @@ const CopyButton = styled.button`
   }
   &:focus {
     outline: 0;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;

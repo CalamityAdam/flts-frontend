@@ -45,7 +45,7 @@ const reducer = (state, action) => {
 function InitialRedirect() {
   const [, dispatch] = useStateValue();
 
-  const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links'];
+  const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links', 'do not-use-logout' ];
   const path = window.location.pathname
   .split('')
   .filter(x => x !== '/')

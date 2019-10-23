@@ -30,25 +30,6 @@ const FormContainer = styled.div`
   }
 `;
 
-const SelectLabel = styled.label`
-  font-family: 'Ubuntu', sans-serif;
-  font-weight: 300;
-  font-size: 2.5rem;
-  margin-right: 2rem;
-  flex: 1;
-`;
-
-const Select = styled.select`
-  flex: 2;
-  text-align: center;
-  font-size: 1.5rem;
-  height: 3rem;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: 2px 2px 5px #273136;
-`;
-
 const SlugInput = styled.input`
   font-family: 'Ubuntu', sans-serif;
   font-size: 2rem;
@@ -114,6 +95,26 @@ const GroupSelect = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
+  text-align: left;
+`;
+
+const SelectLabel = styled.label`
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  margin-right: 1.5rem;
+  flex: 1;
+`;
+
+const Select = styled.select`
+  flex: 2;
+  text-align: center;
+  font-size: 1.5rem;
+  height: 3rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 5px #273136;
 `;
 
 function LinkForm(props) {

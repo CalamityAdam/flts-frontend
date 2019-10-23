@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import { BACKEND_APP_URL } from '../lib/endpoints';
 import { useStateValue } from '../state';
 import { LinkCard } from './index';
 axios.defaults.withCredentials = true;
 
+const ProfileWrapper = styled.div`
+  display: flex;
+  /* margin: auto; */
+  margin: 2rem;
+  flex-flow: row wrap;
+  justify-content: center;
+`;
+
 const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
+  const [loading, setLoading] = useState(false)
   const [{ user }] = useStateValue();
 
   useEffect(() => {
     async function fetchShortens() {
       try {
+        setLoading(true)
         if (user.id) {
           const res = await axios.get(
             `${BACKEND_APP_URL}/api/users/${user.id}`,
           );
           const { shortens } = res.data;
           setMyShortens(shortens);
+          setLoading(false);
         }
       } catch (err) {
         console.log(err);
@@ -36,21 +48,25 @@ const Profile = props => {
     }
   }
 
+  if (loading) {
+    return (
+      <ProfileWrapper>
+        <h1>Loading...</h1>
+      </ProfileWrapper>
+    )
+  }
+  
   return (
-    <>
-      {!myShortens.length && (
-        <h1>sorry friend, you don't have any active links</h1>
-      )}
-      <ul>
-        {myShortens.map(shorten => (
-          <LinkCard
-            key={shorten.id}
-            shorten={shorten}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </ul>
-    </>
+    <ProfileWrapper>
+      {!myShortens.length && <h1>you don't have any links my friend</h1>}
+      {myShortens.map(shorten => (
+        <LinkCard
+        key={shorten.id}
+        shorten={shorten}
+        handleDelete={handleDelete}
+        />
+      ))}
+    </ProfileWrapper>
   );
 };
 

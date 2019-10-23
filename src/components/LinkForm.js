@@ -4,49 +4,60 @@ import styled, { css } from 'styled-components';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
 import { reservedNames } from '../lib/reservedNames';
-import FancyButton from './styles/FancyButton';
 import Label from './styles/Label';
 import NiceInput from './styles/NiceInput';
 axios.defaults.withCredentials = true;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const FormContainer = styled.div`
+  border: 2px solid whitesmoke;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 4rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  box-shadow: 6px 6px 20px #273136, -6px -6px 20px #273136, -6px 6px 20px #273136, 6px -6px 20px #273136;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  @media (max-width: 1300px) {
+    width: 65vw;
+  }
+`;
 
 const SelectLabel = styled.label`
   font-family: 'Ubuntu', sans-serif;
   font-weight: 300;
   font-size: 2.5rem;
   margin-right: 2rem;
+  flex: 1;
 `;
 
 const Select = styled.select`
+  flex: 2;
   text-align: center;
-  width: 11rem;
   font-size: 1.5rem;
   height: 3rem;
-  margin-top: 0.5rem;
   border: 1px solid black;
   border-radius: 5px;
-  background-color: #f1f1f1;
-`;
-
-const SelectContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
+  background-color: white;
+  box-shadow: 2px 2px 5px #273136;
 `;
 
 const SlugInput = styled.input`
   font-family: 'Ubuntu', sans-serif;
   font-size: 2rem;
-  width: 55%;
+  flex: 1;
   padding: 0.5rem;
-  /* margin: 1rem 0.5rem 1.5rem 0.5rem; */
-  margin-left: .5rem;
   box-shadow: 2px 2px 5px #273136;
-  /* margin-top: 2rem;
-  margin-bottom: 2rem; */
-  box-sizing: border-box;
   border: 1px solid #273136;
   border-radius: 5px;
-  white-space: nowrap;
-
+  min-width: 0;
   ${props =>
     props.error &&
     css`
@@ -55,15 +66,57 @@ const SlugInput = styled.input`
 `;
 
 const SlugSpan = styled.div`
-  padding: 0.5rem;
-  margin: 1rem 0.5rem 1.5rem 0.5rem;
-  /* margin: .5rem 0.5rem .5rem 0.5rem; */
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+`;
+
+const SlugText = styled.div`
   font-family: 'Ubuntu', sans-serif;
   font-size: 2rem;
   text-transform: lowercase;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: .5rem;
 `;
 
-const LinkForm = props => {
+const ShortenButton = styled.button`
+  font-family: 'Ubuntu';
+  background-color: #59C8FF;
+  width: auto;
+  font-size: 4rem;
+  text-transform: uppercase;
+  border: 2px solid #273136;
+  box-shadow: 2px 2px 5px black;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  text-decoration: bold;
+  &:active {
+    box-shadow: 0px 0px 1px #273136;
+    transform: translateY(2px) translateX(1px);
+  };
+  &:focus {
+    outline: 0;
+  };
+`;
+
+const Group = styled.div`
+  margin: 1rem 0 1rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+`;
+const GroupSelect = styled.div`
+  margin: 1rem 0 1.5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+`;
+
+function LinkForm(props) {
   const [slug, setSlug] = useState('');
   const [redirect, setRedirect] = useState('');
   const [expiration, setExpiration] = useState(720);
@@ -144,6 +197,9 @@ const LinkForm = props => {
       setError(`welcome, friend :)`);
       setRedirect('');
       setSlug('');
+      setTimeout(() => {
+        setError('')
+      }, 3000)
     } catch (err) {
       console.log(err);
       setError('URL not valid');
@@ -198,46 +254,55 @@ const LinkForm = props => {
   }
 
   return (
-    <div className="main-form">
+    <Wrapper>
       <form onSubmit={handleSubmit}>
-        <Label htmlFor="url">URL to shorten</Label>
-        <NiceInput
-          // className={`nice-input ${error === 'URL not valid' ? 'form-error' : ''}`}
-          error={error === 'URL not valid'}
-          type="textarea"
-          name="url"
-          onChange={(e, data) => setRedirect(e.target.value)}
-          label="URL to shorten:"
-          placeholder="https://..."
-        />
-        <Label htmlFor="slug">Customize it!</Label>
-        <SlugSpan>
-          adumb.dev/
-          <SlugInput
-            error={error === 'custom name taken'}
-            type="text"
-            name="slug"
-            onChange={(e, data) => setSlug(e.target.value)}
-            label="preferred slug"
-            placeholder="random"
-          />
-        </SlugSpan>
-        <SelectLabel htmlFor="expiration">Expiration</SelectLabel>
-        <Select
-          name="expiration"
-          onChange={(e, data) => setExpiration(e.target.value)}
-          value={expiration}
-        >
-          {options.map(({ value, text }) => (
-            <option key={Math.random() * 1000} value={value}>
-              {text}
-            </option>
-          ))}
-        </Select>
-        <FancyButton type="submit">Shorten!</FancyButton>
+        <FormContainer>
+          <Group>
+            <Label htmlFor="url">URL to shorten</Label>
+            <NiceInput
+              error={error === 'URL not valid'}
+              type="textarea"
+              name="url"
+              value={redirect}
+              onChange={(e, data) => setRedirect(e.target.value)}
+              placeholder="https://..."
+            />
+          </Group>
+          <Group>
+            <Label htmlFor="slug">Customize it!</Label>
+            <SlugSpan>
+              <SlugText>
+                adumb.dev/
+              </SlugText>
+              <SlugInput
+                error={error === 'custom name taken'}
+                type="textarea"
+                name="slug"
+                value={slug}
+                onChange={(e, data) => setSlug(e.target.value)}
+                placeholder="random"
+              />
+            </SlugSpan>
+          </Group>
+          <GroupSelect>
+            <SelectLabel htmlFor="expiration">Expiration</SelectLabel>
+            <Select
+              name="expiration"
+              onChange={(e, data) => setExpiration(e.target.value)}
+              value={expiration}
+            >
+              {options.map(({ value, text }) => (
+                <option key={Math.random() * 1000} value={value}>
+                  {text}
+                </option>
+              ))}
+            </Select>
+          </GroupSelect>
+        </FormContainer>
+        <ShortenButton type="submit">Shorten!</ShortenButton>
       </form>
-    </div>
+    </Wrapper>
   );
-};
+}
 
 export default LinkForm;

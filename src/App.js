@@ -14,31 +14,15 @@ const AppContainer = styled.div`
   font-size: 10px;
   /* background-color: #273136; */
   color: black;
+  display: flex;
+  flex-direction: column;
   /* height: 100vh; */
-  width: 100vw;
-  position: relative;
-  display: inline-block;
-`;
-
-const Container = styled.div`
-  border: 2px solid whitesmoke;
-  background-color: white;
-  border-radius: 10px;
-  margin-top: 4rem;
-  padding: 2rem 1.5rem 2rem 1.5rem;
-  box-shadow: 6px 6px 8px #273136;
-  text-align: center;
-  display: inline-block;
-  width: 50vw;
-  @media (max-width: 1300px) {
-    width: 65vw;
-  }
-  /* @media (max-width: 900px) {
-    width: 75vw;
-  } */
+  /* width: 100vw; */
+  /* position: relative; */
+  /* display: inline-block; */
   @media (max-width: 700px) {
-    width: 100vw;
-  }
+    display: none;
+  };
 `;
 
 function App(props) {
@@ -69,13 +53,16 @@ function App(props) {
     checkIfUser();
   }, [user.id, dispatch]);
 
+  if (window.innerWidth < 700) {
+    return (
+      <h1 style={{backgroundColor: 'black', color: 'white', }}>text your link to +13125613886</h1>
+    )
+  }
   return (
-    <AppContainer className="main app container">
+    <AppContainer>
       <Navbar />
       {error && <Error>{error}</Error>}
-      <Container>
-        <Routes />
-      </Container>
+      <Routes />
     </AppContainer>
   );
 };

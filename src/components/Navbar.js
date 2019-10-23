@@ -4,10 +4,11 @@ import { Link } from '@reach/router';
 import { useStateValue } from '../state';
 
 const StyledHeader = styled.header`
+  flex: 1;
   background-color: #59C8FF;
   margin-bottom: 10px;
   padding-bottom: 5px;
-  width: 100vw;
+  /* width: 100vw; */
   a {
     text-decoration: none;
     color: white;
@@ -124,12 +125,12 @@ const NavStyles = styled.ul`
 `;
 
 function Navbar(props) {
-  const [{ user }] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
   const loggedIn = !!user.id;
   return (
     <StyledHeader>
       <div className="bar">
-        <Link to="/">
+        <Link to="/" onClick={() => dispatch({type: 'setNewUrl', newUrl: ''})}>
           <Logo>Sisk Short Links</Logo>
         </Link>
         <NavStyles>

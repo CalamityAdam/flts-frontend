@@ -117,12 +117,16 @@ const fadeIn = keyframes`
   }
 `;
 const CopySuccess = styled.div`
+  height: auto;
   box-sizing: border-box;
-  border: 2px solid green;
+  border: 3px solid green;
   border-radius: 5px
   /* visibility: hidden; */
   margin-left: auto;
   opacity: 0;
+  padding: 0 3px 0px 3px
+  box-shadow: 2px 2px 5px #273136;
+  box-shadow: 2px 2px 5px #273136;
   ${props => props.show && css`
     animation: 3s ${fadeIn} ease-out;
   `}
@@ -170,7 +174,7 @@ const Group3 = styled.div`
 const A = styled.a`
   color: black;
   justify-self: flex-start;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   margin-right: 1rem;
 `;
 const Title = styled.span`
@@ -221,6 +225,10 @@ const PrettyLongLink = styled.textarea`
   resize: none;
   color: black;
   width: 100%;
+  border-radius: 5px;
+  padding-left: .5rem;
+  box-shadow: 2px 2px 5px #273136;
+  box-shadow: 2px 2px 5px #273136;
 `;
 const CopyButton = styled.button`
   /* text-transform: uppercase; */

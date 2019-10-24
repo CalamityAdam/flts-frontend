@@ -5,8 +5,6 @@ import differenceInHours from 'date-fns/differenceInHours';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import { FRONTEND_APP_URL } from '../lib/endpoints';
 import { DeleteConfirm } from './index';
-import copy from '../images/copy-regular.svg'
-import trash from '../images/trash-solid.svg'
 axios.defaults.withCredentials = true;
 
 const shortFrontendUrl = FRONTEND_APP_URL.split('//')[1];
@@ -79,7 +77,7 @@ function LinkCard({ shorten, handleDelete }) {
             </A>
             {document.queryCommandSupported('copy') && (
               <CopyButton onClick={copyToClipboard}>
-                <img src={copy} alt="copy link" width="30" height="30" />
+                <I className="far fa-copy" color="green"></I>
               </CopyButton>
             )}
           </Group2>
@@ -91,7 +89,7 @@ function LinkCard({ shorten, handleDelete }) {
             <Title>expires: </Title>
             {displayExpiration()}
             <DeleteButton onClick={() => setAwaitConfirm(true)}>
-              <img src={trash} alt="delete" style={{width: '30px', height: '30px'}} />
+            <I className="far fa-trash-alt" color="red"></I>
             </DeleteButton>
           </Group3>
           <textarea 
@@ -195,7 +193,7 @@ const Name = styled.span`
 const DeleteButton = styled.button`
   color: white;
   background: white;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 10px;
   margin-left: 1rem;
   box-shadow: 2px 2px 5px #273136;
@@ -231,14 +229,12 @@ const PrettyLongLink = styled.textarea`
   box-shadow: 2px 2px 5px #273136;
 `;
 const CopyButton = styled.button`
-  /* text-transform: uppercase; */
-  /* flex: 1; */
   width: auto;
-  color: #59c8ff;
+  fill: #59c8ff;
   /* font-weight: 500; */
   /* font-size: 1.75rem; */
   background-color: white;
-  border: 3px solid black;
+  border: 2px solid black;
   padding-top: 2px;
   border-radius: 10px;
   box-shadow: 2px 2px 5px #273136;
@@ -252,4 +248,14 @@ const CopyButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  img {
+    fill: #59c8ff;
+  }
+`;
+
+const I = styled.i`
+  color: ${props => props.color};
+  /* tyle={{width: '30px', height: '30px'}}  */
+  font-size: 2rem;
+  /* color: red; */
 `;

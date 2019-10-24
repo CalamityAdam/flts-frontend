@@ -4,14 +4,15 @@ import styled from 'styled-components';
 import { BACKEND_APP_URL } from '../lib/endpoints';
 import { useStateValue } from '../state';
 import { LinkCard } from './index';
+// import { ProfileHeader } from './index';
 axios.defaults.withCredentials = true;
 
 const ProfileWrapper = styled.div`
   display: flex;
-  /* margin: auto; */
   margin: 2rem;
-  flex-flow: row wrap;
-  justify-content: center;
+  flex-direction: column;
+  /* flex-flow: row wrap; */
+  align-items: center;
 `;
 
 const Profile = props => {
@@ -57,16 +58,18 @@ const Profile = props => {
   }
   
   return (
-    <ProfileWrapper>
-      {!myShortens.length && <h1>you don't have any links my friend</h1>}
-      {myShortens.map(shorten => (
-        <LinkCard
-        key={shorten.id}
-        shorten={shorten}
-        handleDelete={handleDelete}
-        />
-      ))}
-    </ProfileWrapper>
+    <>
+      <ProfileWrapper>
+        {!myShortens.length && <h1>you don't have any links my friend</h1>}
+        {myShortens.map(shorten => (
+          <LinkCard
+          key={shorten.id}
+          shorten={shorten}
+          handleDelete={handleDelete}
+          />
+        ))}
+      </ProfileWrapper>
+    </>
   );
 };
 

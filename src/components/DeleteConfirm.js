@@ -37,8 +37,8 @@ function DeleteConfirm({ confirm, cancel }) {
       r u sure?
     </div>
     <div>
-      <ConfirmButton onClick={confirm}>yes</ConfirmButton>
-      <ConfirmButton onClick={cancel}>no</ConfirmButton>
+      <ConfirmButton onClick={confirm}>delete</ConfirmButton>
+      <ConfirmButton onClick={cancel}>cancel</ConfirmButton>
     </div>
     </Wrapper>
   )

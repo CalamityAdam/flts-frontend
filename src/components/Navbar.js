@@ -43,7 +43,6 @@ function Navbar() {
   }
   
   window.onresize = () => {
-    console.log('resized')
     setOffset(wrapperRef.current.offsetTop)
     setResized(true)
     makeSticky()
@@ -53,7 +52,6 @@ function Navbar() {
       setOffset(wrapperRef.current.offsetTop);
       setResized(false);
     }
-    console.log(offset)
     makeSticky()
   }
   function makeSticky() {

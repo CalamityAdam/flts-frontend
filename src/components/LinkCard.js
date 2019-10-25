@@ -46,7 +46,6 @@ function LinkCard({ shorten, handleDelete }) {
 
   function copyToClipboard(e) {
     textAreaRef.current.select();
-    console.log(textAreaRef.current)
     document.execCommand('copy');
     e.target.focus();
     setCopySuccess(true);

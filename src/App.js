@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useStateValue } from './state';
-import { Navbar } from './components';
+import { Navbar, Header } from './components';
 import Error from './components/styles/Error';
 import Routes from './Routes';
 import { BACKEND_APP_URL } from './lib/endpoints';
@@ -12,10 +12,11 @@ axios.defaults.withCredentials = true;
 const AppContainer = styled.div`
   text-align: center;
   font-size: 10px;
-  /* background-color: #273136; */
   color: black;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  /* background-color: #273136; */
   /* height: 100vh; */
   /* width: 100vw; */
   /* position: relative; */
@@ -55,6 +56,7 @@ function App(props) {
 
   return (
     <AppContainer>
+      <Header />
       <Navbar />
       {error && <Error>{error}</Error>}
       <Routes />

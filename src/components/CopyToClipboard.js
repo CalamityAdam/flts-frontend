@@ -21,6 +21,10 @@ const FancyTextarea = styled.textarea`
   box-shadow: 2px 2px 5px #273136;
   border: 1px solid #273136;
   border-radius: 5px;
+  /* width: auto; */
+  width: ${props => `${props.width}rem`};
+  /* width: 30rem; */
+  overflow-y: auto;
   /* min-width: 0; */
   resize: none;
   /* word-wrap: normal; */
@@ -55,9 +59,9 @@ const Container = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  width: 45vw;
+  /* width: 45vw; */
   @media (max-width: 1300px) {
-    width: 65vw;
+    /* width: 65vw; */
   }
 `;
 const Wrapper = styled.div`
@@ -73,6 +77,8 @@ function CopyToClipboard(){
   const textAreaRef = useRef(null);
   const [{ newUrl }, dispatch] = useStateValue()
   const displayUrl = newUrl.split('//')[1];
+  // const displayUrl = 'localhost:3000/hey'
+  const width = (Math.ceil(displayUrl.length / 10) * 15) 
   /**
    * execute copy to clipboard
    */
@@ -90,6 +96,7 @@ function CopyToClipboard(){
       newUrl: '',
     })
   }
+  
 
   return (
     <Wrapper>
@@ -97,7 +104,7 @@ function CopyToClipboard(){
         <Nice>NICE</Nice>
         <Instructions>copy and share!</Instructions>
         <Form>
-          <FancyTextarea rows="1" ref={textAreaRef} value={displayUrl} readOnly />
+          <FancyTextarea rows="1" width={width} value={displayUrl} readOnly />
         </Form>
         {document.queryCommandSupported('copy') && (
           <CopyButton onClick={copyToClipboard} disabled={copySuccess}>
@@ -112,6 +119,12 @@ function CopyToClipboard(){
         )}
       </Container>
       <MakeMore onClick={clearUrl}>make more!</MakeMore>
+      <textarea 
+        ref={textAreaRef}
+        style={{height: 0, width: 0, opacity: 0}}
+        value={newUrl}
+        readOnly
+      />
     </Wrapper>
   );
 };

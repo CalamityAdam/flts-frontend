@@ -13,6 +13,7 @@ const initialState = {
   error: '',
   user: defaultUser,
   newUrl: '',
+  stickyNavbar: false,
 };
 
 const reducer = (state, action) => {
@@ -36,6 +37,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: defaultUser,
+      }
+    case 'setStickyNavbar':
+      return {
+        ...state,
+        stickyNavbar: action.stickyNavbar,
       }
     default:
       return state;

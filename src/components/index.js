@@ -4,9 +4,10 @@ export { default as Login } from './Login';
 export { default as Logout } from './Logout';
 export { default as Signup } from './Signup';
 export { default as Profile } from './Profile';
-export { default as Navbar } from './Navbar';
+export { default as Header } from './Header';
 export { default as ShortenerContainer } from './ShortenerContainer';
 export { default as Auth } from './Auth';
 export { default as LinkCard } from './LinkCard'
 export { default as DoNotUse } from './DoNotUse';
 export { default as DeleteConfirm } from './DeleteConfirm';
+export { default as Navbar } from './Navbar';

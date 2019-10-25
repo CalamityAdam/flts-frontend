@@ -43,9 +43,8 @@ function LinkCard({ shorten, handleDelete }) {
   function cancel() {
     setAwaitConfirm(false);
   }
-  
+
   function copyToClipboard(e) {
-    // TODO: change the copied text from the displayUrl to the newUrl
     textAreaRef.current.select();
     console.log(textAreaRef.current)
     document.execCommand('copy');

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { BACKEND_APP_URL } from '../lib/endpoints';
 import { useStateValue } from '../state';
 import { LinkCard } from './index';
-// import { ProfileHeader } from './index';
 axios.defaults.withCredentials = true;
 
 const ProfileWrapper = styled.div`
@@ -50,6 +49,7 @@ const Profile = props => {
   }
 
   if (loading) {
+    // TODO change this to spinner
     return (
       <ProfileWrapper>
         <h1>Loading...</h1>

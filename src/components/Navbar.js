@@ -1,60 +1,84 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { useRef, useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
 import { Link } from '@reach/router';
 import { useStateValue } from '../state';
 
-const StyledHeader = styled.header`
-  flex: 1;
-  background-color: #59C8FF;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  /* width: 100vw; */
-  a {
-    text-decoration: none;
-    color: white;
-  }
-  .bar {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    align-items: stretch;
-    @media (max-width: 1300px) {
-      grid-template-columns: 1fr;
-      justify-content: center;
-    }
-  }
-  .sub-bar {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    border-bottom: 1px solid lightgray;
-  }
+const Wrapper = styled.div`
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  background-color: white;
+  color: black;
+  max-width: 100%;
+  z-index: 1;
+  margin: 0;
+  box-shadow: 0px 2px 10px #273136;
+  height: 30px;
+  border-radius: 0 0 10px 10px;
+  ${props => props.sticky && css`
+    position: fixed;
+    top: 0;
+    width: calc(100% - 32px);
+  `}
 `;
 
-const Logo = styled.h1`
-  color: whitesmoke;
-  text-transform: uppercase;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 200;
-  font-size: 6rem;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 2rem;
-  position: relative;
-  z-index: 2;
-  letter-spacing: 2px
-  text-shadow: -2px 1px 5px black;
-  text-align: center;
-  @media (max-width: 1300px) {
-    margin: 0;
-    text-align: center;
-    font-size: 6rem;
-    letter-spacing: 2px
+function Navbar() {
+  const wrapperRef = useRef()
+  const [{ user }, dispatch] = useStateValue();
+  const [fastSticky, setFastSticky] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [resized, setResized] = useState(false);
+  const loggedIn = !!user.id;
+  useEffect(() => {
+    setOffset(wrapperRef.current.offsetTop)
+    setResized(true)
+  }, [offset, setResized])
+  
+  function setStickyNavbar(bool) {
+    dispatch({
+      type: 'setStickyNavbar',
+      stickyNavbar: bool,
+    })
   }
-  @media (max-width: 700px) {
-    font-size: 2rem;
-    letter-spacing: 2px
+  
+  window.onresize = () => {
+    console.log('resized')
+    setOffset(wrapperRef.current.offsetTop)
+    setResized(true)
+    makeSticky()
   }
-`;
+  window.onscroll = () => {
+    if (resized) {
+      setOffset(wrapperRef.current.offsetTop);
+      setResized(false);
+    }
+    console.log(offset)
+    makeSticky()
+  }
+  function makeSticky() {
+    if (offset && window.pageYOffset >= offset) {
+      setFastSticky(true)
+      setStickyNavbar(true)
+    } else {
+      setFastSticky(false)
+      setStickyNavbar(false)
+    }
+  }
+  
+  return (
+    <Wrapper ref={wrapperRef} sticky={fastSticky} >
+      <Link to="/" onClick={() => dispatch({type: 'setNewUrl', newUrl: ''})}>
+        home
+      </Link>
+      {loggedIn && (
+        <Link to="/profile">
+          my links
+        </Link>
+      )}
+    </Wrapper>
+  );
+};
 
 const NavStyles = styled.ul`
   margin: 0;
@@ -124,25 +148,24 @@ const NavStyles = styled.ul`
   }
 `;
 
-function Navbar(props) {
-  const [{ user }, dispatch] = useStateValue();
-  const loggedIn = !!user.id;
-  return (
-    <StyledHeader>
-      <div className="bar">
-        <Link to="/" onClick={() => dispatch({type: 'setNewUrl', newUrl: ''})}>
-          <Logo>Sisk Short Links</Logo>
-        </Link>
-        <NavStyles>
-          {loggedIn && (
-            <Link to="/profile">
-              my links
-            </Link>
-          )}
-        </NavStyles>
-      </div>
-    </StyledHeader>
-  )
-}
+// a {
+//   text-decoration: none;
+//   color: white;
+// }
+// .bar {
+//   display: grid;
+//   grid-template-columns: auto 1fr;
+//   justify-content: space-between;
+//   align-items: stretch;
+//   @media (max-width: 1300px) {
+//     grid-template-columns: 1fr;
+//     justify-content: center;
+//   }
+// }
+// .sub-bar {
+//   display: grid;
+//   grid-template-columns: 1fr auto;
+//   border-bottom: 1px solid lightgray;
+// }
 
 export default Navbar;

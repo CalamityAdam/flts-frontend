@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useStateValue } from './state';
 import { Navbar, Header } from './components';
+import GetLocation from './components/GetLocation'
 import Error from './components/styles/Error';
 import Routes from './Routes';
 import { BACKEND_APP_URL } from './lib/endpoints';
@@ -26,7 +27,7 @@ const AppContainer = styled.div`
   };
 `;
 
-function App(props) {
+function App({ currentPath, ...rest }) {
   const [{ error, user }, dispatch] = useStateValue();
   /**
    * "componentDidMount"
@@ -53,15 +54,16 @@ function App(props) {
     }
     checkIfUser();
   }, [user.id, dispatch]);
+  const loggedIn = !!user.id;
 
   return (
     <AppContainer>
       <Header />
-      <Navbar />
+      {loggedIn && <Navbar />}
       {error && <Error>{error}</Error>}
       <Routes />
     </AppContainer>
   );
 };
 
-export default App;
+export default GetLocation(App);

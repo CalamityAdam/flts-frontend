@@ -18,12 +18,13 @@ const Wrapper = styled.div`
 `;
 
 function Routes(props) {
-  const [{ stickyNavbar }] = useStateValue();
+  const [{ stickyNavbar, user }] = useStateValue();
+  const loggedIn = !!user.id;
   return (
     <Wrapper sticky={stickyNavbar}>
       <Router>
         <ShortenerContainer path='/' default />
-        <Profile path='/profile' />
+        {loggedIn && <Profile path='/profile' />}
         <Auth path='/auth' />
         <Logout path='/logout' />
         <DoNotUse path="/do-not-use-logout" />

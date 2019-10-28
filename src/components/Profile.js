@@ -12,7 +12,7 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   /* flex-flow: row wrap; */
   align-items: center;
-`;
+`; 
 
 const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
@@ -39,6 +39,14 @@ const Profile = props => {
     fetchShortens();
   }, [user.id]);
 
+  async function getMyShortens() {
+    
+  }
+  
+  async function getAllShortens() {
+    
+  }
+  
   async function handleDelete(id) {
     try {
       const res = await axios.delete(`${BACKEND_APP_URL}/api/shorten/${id}`)

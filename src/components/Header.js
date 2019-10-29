@@ -14,6 +14,9 @@ const StyledHeader = styled.header`
     text-decoration: none;
     color: white;
   }
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.h1`

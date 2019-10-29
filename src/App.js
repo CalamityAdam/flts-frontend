@@ -4,8 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useStateValue } from './state';
 import { Navbar, Header } from './components';
-import GetLocation from './components/GetLocation'
-import Error from './components/styles/Error';
+import GetLocation from './components/GetLocation';
 import Routes from './Routes';
 import { BACKEND_APP_URL } from './lib/endpoints';
 axios.defaults.withCredentials = true;
@@ -22,13 +21,13 @@ const AppContainer = styled.div`
   /* width: 100vw; */
   /* position: relative; */
   /* display: inline-block; */
-  @media (max-width: 700px) {
+  /* @media (max-width: 700px) {
     display: none;
-  };
+  }; */
 `;
 
 function App({ currentPath, ...rest }) {
-  const [{ error, user }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
   /**
    * "componentDidMount"
    * check if loggedIn user
@@ -60,7 +59,6 @@ function App({ currentPath, ...rest }) {
     <AppContainer>
       <Header />
       {loggedIn && <Navbar />}
-      {error && <Error>{error}</Error>}
       <Routes />
     </AppContainer>
   );

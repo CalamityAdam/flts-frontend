@@ -78,7 +78,7 @@ function CopyToClipboard(){
   const [{ newUrl }, dispatch] = useStateValue()
   const displayUrl = newUrl.split('//')[1];
   // const displayUrl = 'localhost:3000/hey'
-  const width = (Math.ceil(displayUrl.length / 10) * 15) 
+  const width = (Math.ceil(displayUrl.length / 10) * 16) 
   /**
    * execute copy to clipboard
    */

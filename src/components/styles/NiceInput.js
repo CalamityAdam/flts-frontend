@@ -14,6 +14,10 @@ const NiceInput = styled.input`
   ${props => props.error && css`
     border: 3px solid red;
   `}
+  
+  @media (max-width: 700px) {
+    width: 100%
+  }
 `;
 
 export default NiceInput;

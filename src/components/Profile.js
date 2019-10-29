@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 import { BACKEND_APP_URL } from '../lib/endpoints';
 import { useStateValue } from '../state';
 import { LinkCard } from './index';
@@ -12,45 +13,53 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   /* flex-flow: row wrap; */
   align-items: center;
-`; 
+`;
 
 const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
-  const [loading, setLoading] = useState(false)
-  const [{ user }] = useStateValue();
+  const [loading, setLoading] = useState(false);
+  const [{ user, viewFilter }] = useStateValue();
 
+  /**
+   * this is COOL
+   * viewFilter is added as dependency to the hook, so if the radio button
+   * in the navbar is clicked to change view form my links to all links
+   * this hooks will run again and update accordingly
+   */
   useEffect(() => {
-    async function fetchShortens() {
+    async function getShortens() {
       try {
-        setLoading(true)
-        if (user.id) {
+        if (viewFilter === 'mine') {
+          setLoading(true);
+          // if (user.id) {
           const res = await axios.get(
             `${BACKEND_APP_URL}/api/users/${user.id}`,
           );
           const { shortens } = res.data;
           setMyShortens(shortens);
           setLoading(false);
+          // }
+        } else {
+          setLoading(true);
+          const res = await axios.get(`${BACKEND_APP_URL}/api/shorten`);
+          setMyShortens(res.data);
+          setLoading(false);
         }
       } catch (err) {
         console.log(err);
       }
     }
+    getShortens();
+  }, [user.id, viewFilter]);
 
-    fetchShortens();
-  }, [user.id]);
-
-  async function getMyShortens() {
-    
-  }
-  
-  async function getAllShortens() {
-    
-  }
-  
   async function handleDelete(id) {
     try {
-      const res = await axios.delete(`${BACKEND_APP_URL}/api/shorten/${id}`)
-      setMyShortens(myShortens => myShortens.filter(m => m.id !== id))
+      await axios.delete(`${BACKEND_APP_URL}/api/shorten/${id}`);
+      toast.success('👍 deleted!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+      setMyShortens(myShortens => myShortens.filter(m => m.id !== id));
     } catch (err) {
       console.log(err);
     }
@@ -62,18 +71,18 @@ const Profile = props => {
       <ProfileWrapper>
         <h1>Loading...</h1>
       </ProfileWrapper>
-    )
+    );
   }
-  
+
   return (
     <>
       <ProfileWrapper>
         {!myShortens.length && <h1>you don't have any links my friend</h1>}
         {myShortens.map(shorten => (
           <LinkCard
-          key={shorten.id}
-          shorten={shorten}
-          handleDelete={handleDelete}
+            key={shorten.id}
+            shorten={shorten}
+            handleDelete={handleDelete}
           />
         ))}
       </ProfileWrapper>

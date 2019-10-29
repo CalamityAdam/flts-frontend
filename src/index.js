@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { navigate } from '@reach/router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -14,6 +16,7 @@ const initialState = {
   user: defaultUser,
   newUrl: '',
   stickyNavbar: false,
+  viewFilter: 'mine',
 };
 
 const reducer = (state, action) => {
@@ -43,19 +46,26 @@ const reducer = (state, action) => {
         ...state,
         stickyNavbar: action.stickyNavbar,
       }
+    case 'setViewFilter':
+      return {
+        ...state,
+        viewFilter: action.viewFilter,
+      }
     default:
       return state;
   }
 }
 
 function InitialRedirect() {
+  /**
+   * this has to be at the top level to check for a redirect immediately
+   */
   const [, dispatch] = useStateValue();
-
   const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links', 'do not-use-logout' ];
   const path = window.location.pathname
-  .split('')
-  .filter(x => x !== '/')
-  .join('');
+    .split('')
+    .filter(x => x !== '/')
+    .join('');
   if (path && !allowedPaths.includes(path)) {
   fetch(`${BACKEND_APP_URL}/api/shorten/${path}`)
     .then(res => res.json())
@@ -84,6 +94,7 @@ function InitialRedirect() {
 ReactDOM.render(
   <StateProvider initialState={initialState} reducer={reducer}>
     <InitialRedirect />
+    <ToastContainer />
     <App />
   </StateProvider>,
   document.getElementById('root')

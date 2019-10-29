@@ -145,6 +145,11 @@ const CardWrapper = styled.div`
   background-color: white;
   color: black;
   box-shadow: 6px 6px 20px #273136, -6px -6px 20px #273136, -6px 6px 20px #273136, 6px -6px 20px #273136;
+  /* @media (max-width: 700px) {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+  } */
 `;
 const Group = styled.div`
   flex: 1;
@@ -153,6 +158,9 @@ const Group = styled.div`
   justify-content: space-between;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+  /* @media (max-width: 700px) {
+    width: 100%
+  } */
 `;
 const Group2 = styled.div`
   flex: 1;
@@ -160,12 +168,18 @@ const Group2 = styled.div`
   flex-direction: row;
   margin-bottom: .5rem;
   margin-top: 0.5rem;
+  /* @media (max-width: 700px) {
+    width: 100%
+  } */
 `;
 const Group3 = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  /* @media (max-width: 700px) {
+    width: 100%
+  } */
 `;
 const A = styled.a`
   color: black;

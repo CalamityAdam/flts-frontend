@@ -17,6 +17,7 @@ const initialState = {
   newUrl: '',
   stickyNavbar: false,
   viewFilter: 'mine',
+  searchQuery: '',
 };
 
 const reducer = (state, action) => {
@@ -50,6 +51,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         viewFilter: action.viewFilter,
+      }
+    case 'setSearchQuery':
+      return {
+        ...state,
+        searchQuery: action.searchQuery,
       }
     default:
       return state;

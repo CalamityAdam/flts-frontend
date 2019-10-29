@@ -18,7 +18,11 @@ const ProfileWrapper = styled.div`
 const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [{ user, viewFilter }] = useStateValue();
+  const [{ user, viewFilter, searchQuery }] = useStateValue();
+
+  function searchFilter(x) {
+    return x.slug.includes(searchQuery) || x.redirect.includes(searchQuery);
+  }
 
   /**
    * this is COOL
@@ -45,6 +49,10 @@ const Profile = props => {
           setMyShortens(res.data);
           setLoading(false);
         }
+        // dispatch({
+        //   type: 'setSearchQuery',
+        //   searchQuery: '',
+        // })
       } catch (err) {
         console.log(err);
       }
@@ -78,7 +86,7 @@ const Profile = props => {
     <>
       <ProfileWrapper>
         {!myShortens.length && <h1>you don't have any links my friend</h1>}
-        {myShortens.map(shorten => (
+        {myShortens.filter(searchFilter).map(shorten => (
           <LinkCard
             key={shorten.id}
             shorten={shorten}

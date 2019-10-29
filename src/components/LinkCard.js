@@ -24,6 +24,10 @@ function LinkCard({ shorten, handleDelete }) {
       Number(new Date(createdAt)) + expiration,
       Date.now(),
     );
+    if (timeLeftInMinutes < 0) {
+      // this link is EXPIRED
+      return 'expired';
+    }
     if (timeLeftInMinutes < 60) {
       // less than 1 hour remaining
       return `${timeLeftInMinutes} minutes`;

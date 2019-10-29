@@ -2,11 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from '@reach/router';
 import { useStateValue } from '../state';
+import debounce from '../lib/debounce';
 import GetLocation from './GetLocation';
 
 function Navbar({ currentPath, ...rest }) {
   const wrapperRef = useRef()
-  const [{ viewFilter }, dispatch] = useStateValue();
+  const [{ viewFilter, searchQuery }, dispatch] = useStateValue();
   const [fastSticky, setFastSticky] = useState(false);
   const [offset, setOffset] = useState(0);
   const [resized, setResized] = useState(false);
@@ -16,6 +17,15 @@ function Navbar({ currentPath, ...rest }) {
       viewFilter: newFilter,
     })
   }
+  function setSearchQuery(newQuery) {
+    console.log(newQuery);
+    dispatch({
+      type: 'setSearchQuery',
+      searchQuery: newQuery,
+    })
+  }
+  const debouncedSearchQuery = debounce(setSearchQuery, 500);
+  console.log(searchQuery);
   useEffect(() => {
     setOffset(wrapperRef.current.offsetTop)
     setResized(true)
@@ -66,6 +76,7 @@ function Navbar({ currentPath, ...rest }) {
           <input
             type="text"
             placeholder="search"
+            onChange={(e) => debouncedSearchQuery(e.target.value)}
           ></input>
           <form>
             <input 
@@ -111,7 +122,7 @@ function Navbar({ currentPath, ...rest }) {
 
 export default GetLocation(Navbar);
 
-const Wrapper = styled.div`
+const Wrapper = styled.nav`
   padding: 1rem;
   display: flex;
   justify-content: space-between;

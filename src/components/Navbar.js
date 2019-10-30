@@ -24,7 +24,6 @@ function Navbar({ currentPath, ...rest }) {
    * dispatch setSearchQUery
    */
   function setSearchQuery(newQuery) {
-    console.log(newQuery);
     dispatch({
       type: 'setSearchQuery',
       searchQuery: newQuery,
@@ -35,7 +34,6 @@ function Navbar({ currentPath, ...rest }) {
    * and frequently
    */
   const debouncedSearchQuery = debounce(setSearchQuery, 500);
-  console.log(searchQuery);
   useEffect(() => {
     setOffset(wrapperRef.current.offsetTop)
     setResized(true)

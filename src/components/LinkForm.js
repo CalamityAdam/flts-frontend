@@ -101,6 +101,12 @@ function LinkForm(props) {
       setSlug('');
     } catch (err) {
       console.log(err);
+      if (!toast.isActive(urlToastId)) {
+        toast.warn('🚫 URL not valid', {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: urlToastId,
+        })
+      }
       setError('URL not valid');
     }
   }

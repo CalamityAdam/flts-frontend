@@ -11,12 +11,18 @@ function Navbar({ currentPath, ...rest }) {
   const [fastSticky, setFastSticky] = useState(false);
   const [offset, setOffset] = useState(0);
   const [resized, setResized] = useState(false);
+  /**
+   * dispatcfh setViewFilter
+   */
   function setViewFilter(newFilter) {
     dispatch({
       type: 'setViewFilter',
       viewFilter: newFilter,
     })
   }
+  /**
+   * dispatch setSearchQUery
+   */
   function setSearchQuery(newQuery) {
     console.log(newQuery);
     dispatch({
@@ -24,6 +30,10 @@ function Navbar({ currentPath, ...rest }) {
       searchQuery: newQuery,
     })
   }
+  /**
+   * use a debounced function to prefent filter from happening to quickly
+   * and frequently
+   */
   const debouncedSearchQuery = debounce(setSearchQuery, 500);
   console.log(searchQuery);
   useEffect(() => {
@@ -31,6 +41,9 @@ function Navbar({ currentPath, ...rest }) {
     setResized(true)
   }, [offset, setResized])
   
+  /**
+   * dispatch stickyNavbar
+   */
   function dispatchStickyNavbar(bool) {
     dispatch({
       type: 'setStickyNavbar',
@@ -47,6 +60,10 @@ function Navbar({ currentPath, ...rest }) {
     setResized(true)
     makeSticky()
   }
+  /**
+   * on window scroll check offset vs navbar location to determine if
+   * nav needs to be sticky
+   */
   window.onscroll = () => {
     if (resized) {
       setOffset(wrapperRef.current.offsetTop);

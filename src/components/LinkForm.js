@@ -17,6 +17,7 @@ function LinkForm(props) {
   const loggedIn = !!user.id;
   const urlToastId = 'url-error';
   const slugToastId = 'slug-error';
+  // only logged in users can have permanent links
   useEffect(() => {
     if (loggedIn) {
       setExpiration(0);
@@ -53,7 +54,7 @@ function LinkForm(props) {
   /**
    * send post req to create the new redirect
    */
-  async function createRedirect(newShorten) {
+  async function createShorten(newShorten) {
     try {
       const { data } = await axios.post(
         `${BACKEND_APP_URL}/api/shorten/`,
@@ -73,7 +74,12 @@ function LinkForm(props) {
       }
     }
   }
-
+  
+  /**
+   * Silent Auth - when "admin" is typed into the URL input, send both the URL
+   * input and the Custom Name input to the silentAuth route. check will be
+   * handled on backend for accuract of credentials
+   */
   async function silentAuth() {
     try {
       const auth = {
@@ -88,12 +94,11 @@ function LinkForm(props) {
         type: 'getUser',
         user: data,
       });
-      setError(`welcome, friend :)`);
+      toast.success('😄 welcome friend', {
+        position: toast.POSITION.BOTTOM_LEFT,
+      })
       setRedirect('');
       setSlug('');
-      setTimeout(() => {
-        setError('')
-      }, 3000)
     } catch (err) {
       console.log(err);
       setError('URL not valid');
@@ -101,7 +106,7 @@ function LinkForm(props) {
   }
 
   /**
-   * handle submit and build the new redirect object
+   * handle submit and build the new shorten object
    */
   function handleSubmit(e) {
     e.preventDefault();
@@ -145,7 +150,7 @@ function LinkForm(props) {
       expiration,
       userId: user.id || null,
     };
-    createRedirect(newRedirect);
+    createShorten(newRedirect);
   }
 
   /**
@@ -160,6 +165,9 @@ function LinkForm(props) {
     }
   }
 
+  /**
+   * validte that custom name is not an internally reserved word
+   */
   function isNameValid(string) {
     if (reservedNames.includes(string)) {
       if (!toast.isActive(slugToastId)) {

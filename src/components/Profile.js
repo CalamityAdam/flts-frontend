@@ -35,24 +35,18 @@ const Profile = props => {
       try {
         if (viewFilter === 'mine') {
           setLoading(true);
-          // if (user.id) {
           const res = await axios.get(
             `${BACKEND_APP_URL}/api/users/${user.id}`,
           );
           const { shortens } = res.data;
           setMyShortens(shortens);
           setLoading(false);
-          // }
         } else {
           setLoading(true);
           const res = await axios.get(`${BACKEND_APP_URL}/api/shorten`);
           setMyShortens(res.data);
           setLoading(false);
         }
-        // dispatch({
-        //   type: 'setSearchQuery',
-        //   searchQuery: '',
-        // })
       } catch (err) {
         console.log(err);
       }
@@ -60,6 +54,9 @@ const Profile = props => {
     getShortens();
   }, [user.id, viewFilter]);
 
+  /**
+   * handle fetch delete here and pass down function to LinkCard
+   */
   async function handleDelete(id) {
     try {
       await axios.delete(`${BACKEND_APP_URL}/api/shorten/${id}`);

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { navigate } from '@reach/router';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './index.css';
 import App from './App';
@@ -11,6 +11,9 @@ import { BACKEND_APP_URL } from './lib/endpoints';
 import { useStateValue } from './state';
 
 const defaultUser = {};
+/**
+ * initial state
+ */
 const initialState = {
   error: '',
   user: defaultUser,
@@ -20,6 +23,9 @@ const initialState = {
   searchQuery: '',
 };
 
+/**
+ * reducer
+ */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'setError':
@@ -62,22 +68,32 @@ const reducer = (state, action) => {
   }
 }
 
+/**
+ * this has to be at the top level to check for a redirect immediately.
+ * check if a path after domain name, if there is query the DB to search
+ * for a redirect, if found force redirect, else warn for URL not found.
+ */
 function InitialRedirect() {
-  /**
-   * this has to be at the top level to check for a redirect immediately
-   */
   const [, dispatch] = useStateValue();
   const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links', 'do not-use-logout' ];
   const path = window.location.pathname
     .split('')
     .filter(x => x !== '/')
     .join('');
+  
+  const redirectToastId = 'redirect-error';
   if (path && !allowedPaths.includes(path)) {
   fetch(`${BACKEND_APP_URL}/api/shorten/${path}`)
     .then(res => res.json())
     .then(({ redirect, message }) => {
       if (message) {
         // not found
+        if (!toast.isActive(redirectToastId)) {
+          toast.error('😢URL not found', {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: redirectToastId,
+          })
+        }
         dispatch({
           type: 'setError',
           error: message

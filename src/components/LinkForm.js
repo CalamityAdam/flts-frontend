@@ -206,6 +206,7 @@ function LinkForm(props) {
           </Group>
           <Group>
             <Label htmlFor="slug">Customize it!</Label>
+            <TinyInstructions>leave blank for random</TinyInstructions>
             <SlugSpan>
               <SlugText>
                 adumb.dev/
@@ -369,4 +370,9 @@ const Select = styled.select`
   border-radius: 5px;
   background-color: white;
   box-shadow: 2px 2px 5px #273136;
+`;
+
+const TinyInstructions = styled.div`
+font-size: 1rem;
+margin-top: .5rem;
 `;

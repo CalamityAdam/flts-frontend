@@ -121,7 +121,6 @@ const CopySuccess = styled.div`
   box-sizing: border-box;
   border: 3px solid green;
   border-radius: 5px
-  /* visibility: hidden; */
   margin-left: auto;
   opacity: 0;
   padding: 0 3px 0px 3px
@@ -133,7 +132,6 @@ const CopySuccess = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  /* overflow: hidden; */
   flex: 1;
   height: 220px;
   width: 650px;
@@ -188,7 +186,6 @@ const Group3 = styled.div`
 const A = styled.a`
   color: black;
   justify-self: flex-start;
-  /* margin-left: 1rem; */
   margin-right: 1rem;
 `;
 const Title = styled.span`
@@ -202,7 +199,6 @@ const Title = styled.span`
 `;
 
 const Name = styled.span`
-  /* flex: 1; */
   font-weight: bold;
   font-size: 2rem;
 `;
@@ -247,8 +243,6 @@ const PrettyLongLink = styled.textarea`
 const CopyButton = styled.button`
   width: auto;
   fill: #59c8ff;
-  /* font-weight: 500; */
-  /* font-size: 1.75rem; */
   background-color: white;
   border: 2px solid black;
   padding-top: 2px;
@@ -273,5 +267,4 @@ const I = styled.i`
   color: ${props => props.color};
   /* tyle={{width: '30px', height: '30px'}}  */
   font-size: 2rem;
-  /* color: red; */
 `;

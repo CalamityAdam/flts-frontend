@@ -7,7 +7,7 @@ import GetLocation from './GetLocation';
 
 function Navbar({ currentPath, ...rest }) {
   const wrapperRef = useRef()
-  const [{ viewFilter, searchQuery }, dispatch] = useStateValue();
+  const [{ viewFilter }, dispatch] = useStateValue();
   const [fastSticky, setFastSticky] = useState(false);
   const [offset, setOffset] = useState(0);
   const [resized, setResized] = useState(false);
@@ -147,7 +147,6 @@ const Wrapper = styled.nav`
   max-width: 100%;
   z-index: 1;
   margin: 0;
-  /* margin: auto; */
   box-shadow: 0px 2px 10px #273136;
   height: 30px;
   border-radius: 0 0 10px 10px;

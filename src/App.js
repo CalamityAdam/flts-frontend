@@ -16,14 +16,15 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  /* background-color: #273136; */
-  /* height: 100vh; */
-  /* width: 100vw; */
-  /* position: relative; */
-  /* display: inline-block; */
-  /* @media (max-width: 700px) {
-    display: none;
-  }; */
+  @media (max-width: 700px) {
+    background-color: #273136;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 function App({ currentPath, ...rest }) {

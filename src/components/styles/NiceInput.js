@@ -16,7 +16,11 @@ const NiceInput = styled.input`
   `}
   
   @media (max-width: 700px) {
-    width: 100%
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding: .5rem;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 `;
 

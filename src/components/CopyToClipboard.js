@@ -39,9 +39,10 @@ function CopyToClipboard(){
             {copySuccess ? (
               'Copied!'
             ) : (
-              <I className="far fa-copy" color="green">
+              <>
+                <I className="far fa-copy" color="green"></I>
                 <Span>copy</Span>
-              </I>
+              </>
             )}
           </CopyButton>
         )}

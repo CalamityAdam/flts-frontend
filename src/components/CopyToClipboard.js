@@ -191,8 +191,10 @@ const CopyButton = styled.button`
     cursor: pointer;
   }
   @media (max-width: 700px) {
+    color:  black;
     font-size: 2rem;
     margin-top: .5rem;
+    background-color: white;
   }
 `;
 const Span = styled.span`

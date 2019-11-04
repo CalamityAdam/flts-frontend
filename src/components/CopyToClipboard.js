@@ -139,6 +139,7 @@ const Wrapper = styled.div`
   }
 `;
 const MakeMore = styled.button`
+  background-color: white;
   font-size: 2rem;
   font-family: 'Ubuntu';
   text-transform: uppercase;
@@ -157,6 +158,7 @@ const MakeMore = styled.button`
     cursor: pointer;
   }
   @media (max-width: 700px) {
+    background-color: white;
     margin: 1rem;
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
     font-size: 2rem;

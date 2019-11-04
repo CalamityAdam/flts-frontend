@@ -80,7 +80,6 @@ function LinkForm(props) {
         })
         setError(err.response.data);
       } else {
-        console.log('got here!')
         console.error(err);
       }
     }
@@ -271,7 +270,6 @@ const Wrapper = styled.div`
   justify-content: center;
   @media (max-width: 700px) {
     width: 100vw;
-    /* margin: auto; */
     margin: 0;
     padding: 0;
   }
@@ -299,7 +297,6 @@ const FormContainer = styled.div`
     padding: 0;
     padding-top: 3rem;
     width: 100vw;
-    /* height: 100%; */
     border: none;
     box-shadow: none;
   }
@@ -323,7 +320,6 @@ const SlugInput = styled.input`
     margin: .5rem;
     padding: .5rem;
     font-size: 1.5rem;
-    /* width: 100vw; */
   }
 `;
 
@@ -435,7 +431,6 @@ const TinyInstructions = styled.div`
 font-size: 1rem;
 margin-top: .5rem;
 @media (max-width: 700px) {
-    /* margin-bottom: -10rem; */
     position: relative;
     top: 6.5rem;
     padding: 0;

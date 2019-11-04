@@ -12,7 +12,6 @@ const ProfileWrapper = styled.div`
   display: flex;
   margin: 2rem;
   flex-direction: column;
-  /* flex-flow: row wrap; */
   align-items: center;
 `;
 
@@ -20,7 +19,7 @@ const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
   const [loading, setLoading] = useState(false);
   const [{ user, viewFilter, searchQuery }] = useStateValue();
-  const { width } = useWindowDimensions();
+  // const { width } = useWindowDimensions();
   // const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
   const TOAST_POSITION = 'TOP_CENTER';
 

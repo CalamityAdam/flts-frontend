@@ -61,30 +61,20 @@ const Form = styled.form`
   display: flex;
   justify-content: stretch;
   flex-direction: row;
-  /* flex-wrap: nowrap; */
-  /* margin: auto; */
 `;
 const FancyTextarea = styled.textarea`
   justify-self: stretch;
   font-family: 'Ubuntu', sans-serif;
   font-size: 3rem;
-  /* flex-grow: 1; */
   padding: 0.5rem;
   margin: auto;
-  /* height: fit-content; */
   margin-bottom: 1rem;
   box-shadow: 2px 2px 5px #273136;
   border: 1px solid #273136;
   border-radius: 5px;
-  /* width: auto; */
   width: ${props => `${props.width}rem`};
-  /* width: 30rem; */
   overflow-y: auto;
-  /* min-width: 0; */
   resize: none;
-  /* word-wrap: normal; */
-  /* overflow: hidden; */
-  /* white-space: normal; */
   text-align: justify;
   -moz-text-align-last: center;
   text-align-last: center;
@@ -116,7 +106,6 @@ const Instructions = styled.div`
   }
 `;
 const Container = styled.div`
-  /* flex: 1; */
   border: 2px solid whitesmoke;
   background-color: white;
   border-radius: 10px;
@@ -128,9 +117,7 @@ const Container = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* width: 45vw; */
   @media (max-width: 1300px) {
-    /* width: 65vw; */
   }
   @media (max-width: 700px) {
     width: 100vw;
@@ -143,7 +130,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   margin: auto;
   @media (max-width: 700px) {
     width: 100vw;
@@ -177,9 +163,7 @@ const MakeMore = styled.button`
 `;
 const I = styled.i`
   color: ${props => props.color};
-  /* tyle={{width: '30px', height: '30px'}}  */
   font-size: 4rem;
-  /* color: red; */
   @media (max-width: 700px) {
     font-size: 2rem;
   }
@@ -187,7 +171,6 @@ const I = styled.i`
 const CopyButton = styled.button`
   flex: 1;
   font-family: 'Ubuntu';
-  /* background-color: #59C8FF; */
   width: auto;
   font-size: 4rem;
   text-transform: uppercase;
@@ -197,7 +180,6 @@ const CopyButton = styled.button`
   margin: auto;
   margin-bottom: 1rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-  /* text-decoration: bold; */
   &:active {
     box-shadow: 0px 0px 1px #273136;
     transform: translateY(2px) translateX(1px);

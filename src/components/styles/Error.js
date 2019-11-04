@@ -20,18 +20,11 @@ const Error = styled.div`
   z-index: 2;
   position: fixed;
   text-align: center;
-  /* top: 0; */
-  /* justify-self: center; */
-  /* right: 0; */
-  /* bottom: 0; */
   margin: auto;
   float: right;
   top: 165px;
   left: 50%;
   transform: translate(-50%, 0);
-  /* text-shadow: 0px 0px 4px black; */
-  /* text-shadow: red 2px 2px, red -2px -2px, red 2px -2px, red -2px 2px; */
-  /* position: relative; */
   text-align: center;
   animation: 4s ${fade};
   animation-fill-mode: forwards;

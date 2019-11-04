@@ -32,83 +32,112 @@ const reducer = (state, action) => {
       return {
         ...state,
         error: action.error,
-      }
+      };
     case 'getUser':
       return {
         ...state,
         user: action.user,
-      }
+      };
     case 'setNewUrl':
       return {
         ...state,
         newUrl: action.newUrl,
-      }
+      };
     case 'removeUser':
       return {
         ...state,
         user: defaultUser,
-      }
+      };
     case 'setStickyNavbar':
       return {
         ...state,
         stickyNavbar: action.stickyNavbar,
-      }
+      };
     case 'setViewFilter':
       return {
         ...state,
         viewFilter: action.viewFilter,
-      }
+      };
     case 'setSearchQuery':
       return {
         ...state,
         searchQuery: action.searchQuery,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 /**
  * this has to be at the top level to check for a redirect immediately.
  * check if a path after domain name, if there is query the DB to search
  * for a redirect, if found force redirect, else warn for URL not found.
  */
-function InitialRedirect() {
+function InitialRedirect({ closeToast }) {
   const [, dispatch] = useStateValue();
-  const allowedPaths = [ 'profile' ,'login' ,'logout' ,'signup' ,'links', 'do not-use-logout' ];
+  const loadingToastId = 'loading-toast';
+  const redirectToastId = 'redirect-error';
+  const allowedPaths = [
+    'profile',
+    'login',
+    'logout',
+    'signup',
+    'links',
+    'do not-use-logout',
+  ];
   const path = window.location.pathname
     .split('')
     .filter(x => x !== '/')
     .join('');
-  
-  const redirectToastId = 'redirect-error';
+
   if (path && !allowedPaths.includes(path)) {
-  fetch(`${BACKEND_APP_URL}/api/shorten/${path}`)
-    .then(res => res.json())
-    .then(({ redirect, message }) => {
-      if (message) {
-        // not found
-        if (!toast.isActive(redirectToastId)) {
-          toast.error('😢URL not found', {
+    if (!toast.isActive(loadingToastId)) {
+      toast.info('👀looking...', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        toastId: loadingToastId,
+      });
+    }
+    fetch(`${BACKEND_APP_URL}/api/shorten/${path}`)
+      .then(res => res.json())
+      .then(({ redirect, message }) => {
+        if (message) {
+          // not found
+          if (!toast.isActive(redirectToastId)) {
+            console.log('gothere');
+            toast.error('😢URL not found', {
+              position: toast.POSITION.TOP_CENTER,
+              toastId: redirectToastId,
+              autoClose: 3000,
+            });
+          }
+          dispatch({
+            type: 'setError',
+            error: message,
+          });
+          navigate('/');
+        } else {
+          // closeToast();
+          toast.success('😎BEING REDIRECTED...😎', {
             position: toast.POSITION.TOP_CENTER,
-            toastId: redirectToastId,
-          })
+            autoClose: 3000,
+          });
+          // found a slug, REDIRECT!
+          // window.location.replace(redirect_to);
+          window.location.href = redirect;
         }
-        dispatch({
-          type: 'setError',
-          error: message
-        })
-        navigate('/')
-      } else {
-        // found a slug, REDIRECT!
-        // window.location.replace(redirect_to);
-        window.location.href = redirect;
-      }
-    })
-    .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
     return (
-      <h1> being redirected</h1>
-    )
+      <div>
+        {!toast.isActive(loadingToastId) &&
+          toast.info('👀looking...', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: false,
+            toastId: loadingToastId,
+          })}
+      </div>
+    );
   }
   return null;
 }
@@ -119,7 +148,7 @@ ReactDOM.render(
     <ToastContainer />
     <App />
   </StateProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

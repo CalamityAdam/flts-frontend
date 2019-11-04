@@ -24,6 +24,15 @@ const AppContainer = styled.div`
   /* @media (max-width: 700px) {
     display: none;
   }; */
+  @media (max-width: 700px) {
+    background-color: #273136;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 function App({ currentPath, ...rest }) {

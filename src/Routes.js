@@ -15,6 +15,9 @@ const Wrapper = styled.div`
   ${props => props.sticky && css`
     padding-top: 62px;
   `}
+  @media (max-width: 700px) {
+    flex: 1
+  }
 `;
 
 function Routes(props) {

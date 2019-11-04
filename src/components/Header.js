@@ -9,13 +9,14 @@ const StyledHeader = styled.header`
   padding-bottom: 5px;
   height: 120px;
   min-height: 120px;
-  /* width: 100vw; */
   a {
     text-decoration: none;
     color: white;
   }
   @media (max-width: 700px) {
-    display: none;
+    height: 20px;
+    max-height: 45px;
+    min-height: 20px;
   }
 `;
 
@@ -48,7 +49,7 @@ const Logo = styled.h1`
 
 
 function Navbar(props) {
-  const [{ user }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
   return (
     <StyledHeader>
       <div className="bar">

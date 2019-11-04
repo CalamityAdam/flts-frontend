@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import { BACKEND_APP_URL } from '../lib/endpoints';
+import useWindowDimensions from '../lib/useWindowDimensions';
 import { useStateValue } from '../state';
 import { LinkCard } from './index';
 axios.defaults.withCredentials = true;
@@ -19,6 +20,8 @@ const Profile = props => {
   const [myShortens, setMyShortens] = useState([]);
   const [loading, setLoading] = useState(false);
   const [{ user, viewFilter, searchQuery }] = useStateValue();
+  const { width } = useWindowDimensions();
+  const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
 
   function searchFilter(x) {
     return x.slug.includes(searchQuery) || x.redirect.includes(searchQuery);
@@ -61,7 +64,7 @@ const Profile = props => {
     try {
       await axios.delete(`${BACKEND_APP_URL}/api/shorten/${id}`);
       toast.success('👍 deleted!', {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION[TOAST_POSITION],
         autoClose: 3000,
       });
       setMyShortens(myShortens => myShortens.filter(m => m.id !== id));

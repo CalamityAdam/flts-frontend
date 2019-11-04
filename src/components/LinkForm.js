@@ -5,8 +5,10 @@ import { toast } from 'react-toastify';
 import { useStateValue } from '../state';
 import { BACKEND_APP_URL, FRONTEND_APP_URL } from '../lib/endpoints';
 import { reservedNames } from '../lib/reservedNames';
+import useWindowDimensions from '../lib/useWindowDimensions';
 import Label from './styles/Label';
 import NiceInput from './styles/NiceInput';
+
 axios.defaults.withCredentials = true;
 
 function LinkForm(props) {
@@ -14,6 +16,8 @@ function LinkForm(props) {
   const [redirect, setRedirect] = useState('');
   const [expiration, setExpiration] = useState(720);
   const [{ error, user }, dispatch] = useStateValue();
+  const { height, width } = useWindowDimensions();
+  const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
   const loggedIn = !!user.id;
   const urlToastId = 'url-error';
   const slugToastId = 'slug-error';
@@ -68,6 +72,10 @@ function LinkForm(props) {
     } catch (err) {
       if (err.response) {
         console.log(err.response);
+        toast.error('🙅‍custom name taken', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+        })
         setError(err.response.data);
       } else {
         console.error(err);
@@ -103,8 +111,9 @@ function LinkForm(props) {
       console.log(err);
       if (!toast.isActive(urlToastId)) {
         toast.warn('🚫 URL not valid', {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION[TOAST_POSITION],
           toastId: urlToastId,
+          autoClose: 3000,
         })
       }
       setError('URL not valid');
@@ -116,13 +125,9 @@ function LinkForm(props) {
    */
   function handleSubmit(e) {
     e.preventDefault();
-
-    let modifiedRedirect = null;
     if (error) {
+      // clean up errors
       setError('');
-    }
-    
-    if (redirect.substr(0, 4) !== 'http') {
     }
     // check if URL input is a valid url
     if (!isValidUrl(redirect)) {
@@ -132,27 +137,22 @@ function LinkForm(props) {
         silentAuth();
         return;
       }
-      // if not silent auth, check if adding "http://" makes it valied
-      if (isValidUrl(`http://${redirect}`)) {
-        // user forgot to add http:// to the UR
-        modifiedRedirect = `http://${redirect}`;
-      } else {
-        // this URL is NOT valid
-        if (!toast.isActive(urlToastId)) {
-          toast.warn('🚫 URL not valid', {
-            position: toast.POSITION.TOP_CENTER,
-            toastId: urlToastId,
-          })
-        }
-        setError('URL not valid');
-        return;
+      // this URL is NOT valid
+      if (!toast.isActive(urlToastId)) {
+        toast.warn('🚫 URL not valid', {
+          position: toast.POSITION[TOAST_POSITION],
+          toastId: urlToastId,
+          autoClose: 3000,
+        })
       }
-    }
+      setError('URL not valid');
+      return;
+      }
     if (!isNameValid(slug)) return;
     setError('');
     const newRedirect = {
       slug,
-      redirect: modifiedRedirect || redirect,
+      redirect: redirect,
       expiration,
       userId: user.id || null,
     };
@@ -178,8 +178,9 @@ function LinkForm(props) {
     if (reservedNames.includes(string)) {
       if (!toast.isActive(slugToastId)) {
         toast.warn('🚫 custom name taken', {
-          position: toast.POSITION.TOP_CENTER,
+          position: toast.POSITION[TOAST_POSITION],
           toastId: slugToastId,
+          autoClose: 3000,
         })
       }
       setError('custom name taken');
@@ -201,7 +202,7 @@ function LinkForm(props) {
               name="url"
               value={redirect}
               onChange={(e, data) => setRedirect(e.target.value)}
-              placeholder="https://..."
+              placeholder={width < 700 ? "URL to shorten" : "https://..."}
             />
           </Group>
           <Group>
@@ -217,7 +218,7 @@ function LinkForm(props) {
                 name="slug"
                 value={slug}
                 onChange={(e, data) => setSlug(e.target.value)}
-                placeholder="random"
+                placeholder={width < 700 ? "custome /name" : "random"}
               />
             </SlugSpan>
           </Group>
@@ -249,8 +250,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   @media (max-width: 700px) {
-    width: 95vw;
+    width: 100vw;
     /* margin: auto; */
+    margin: 0;
+    padding: 0;
   }
 `;
 
@@ -270,11 +273,14 @@ const FormContainer = styled.div`
     width: 65vw;
   }
   @media (max-width: 700px) {
-    width: 95vw;
+    background-color: #273136;
+    color: white;
+    margin: 0;
+    padding: 0;
+    padding-top: 3rem;
+    width: 100vw;
+    /* height: 100%; */
     border: none;
-    margin-top: 2rem;
-    padding: 1rem;
-    /* margin: 2rem; */
     box-shadow: none;
   }
 `;
@@ -294,7 +300,9 @@ const SlugInput = styled.input`
       border: 3px solid red;
   `}
   @media (max-width: 700px) {
-    width: 100vw;
+    margin: .5rem;
+    padding: .5rem;
+    /* width: 100vw; */
   }
 `;
 
@@ -312,6 +320,9 @@ const SlugText = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-right: .5rem;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const ShortenButton = styled.button`
@@ -336,6 +347,10 @@ const ShortenButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 700px) {
+    background-color: white;
+    border: 3px solid #59C8FF;
+  }
 `;
 
 const Group = styled.div`
@@ -344,6 +359,10 @@ const Group = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  @media (max-width: 700px) {
+    margin: .5rem;
+    padding: .5rem;
+  }
 `;
 const GroupSelect = styled.div`
   margin: 1rem 0 1.5rem 0;
@@ -351,6 +370,10 @@ const GroupSelect = styled.div`
   display: flex;
   flex-direction: row;
   text-align: left;
+  @media (max-width: 700px) {
+    margin: .5rem;
+    padding: .5rem;
+  }
 `;
 
 const SelectLabel = styled.label`
@@ -359,6 +382,12 @@ const SelectLabel = styled.label`
   font-size: 2.5rem;
   margin-right: 1.5rem;
   flex: 1;
+  @media (max-width: 700px) {
+    margin: auto;
+    margin-left: .5rem;
+    padding: 0;
+    font-size: 2rem;
+  }
 `;
 
 const Select = styled.select`
@@ -370,9 +399,21 @@ const Select = styled.select`
   border-radius: 5px;
   background-color: white;
   box-shadow: 2px 2px 5px #273136;
+  @media (max-width: 700px) {
+    margin: 0;
+    margin-right: 0.5rem;
+    padding: 0;
+    padding-left: 0.5rem;
+  }
 `;
 
 const TinyInstructions = styled.div`
 font-size: 1rem;
 margin-top: .5rem;
+@media (max-width: 700px) {
+    /* margin-bottom: -10rem; */
+    position: relative;
+    top: 6.5rem;
+    padding: 0;
+  }
 `;

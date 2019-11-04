@@ -8,6 +8,7 @@ import { reservedNames } from '../lib/reservedNames';
 import useWindowDimensions from '../lib/useWindowDimensions';
 import Label from './styles/Label';
 import NiceInput from './styles/NiceInput';
+// const RESTRICTED_CHARACTERS
 
 axios.defaults.withCredentials = true;
 
@@ -16,8 +17,9 @@ function LinkForm(props) {
   const [redirect, setRedirect] = useState('');
   const [expiration, setExpiration] = useState(720);
   const [{ error, user }, dispatch] = useStateValue();
-  const { height, width } = useWindowDimensions();
-  const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
+  const { width } = useWindowDimensions();
+  // const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
+  const TOAST_POSITION = 'TOP_CENTER';
   const loggedIn = !!user.id;
   const urlToastId = 'url-error';
   const slugToastId = 'slug-error';
@@ -78,6 +80,7 @@ function LinkForm(props) {
         })
         setError(err.response.data);
       } else {
+        console.log('got here!')
         console.error(err);
       }
     }
@@ -148,10 +151,21 @@ function LinkForm(props) {
       setError('URL not valid');
       return;
       }
-    if (!isNameValid(slug)) return;
+    let filteredSlug = slug.replace(/\s/g, '-')
+    if (!isNameValid(filteredSlug)) return;
+    // check for special characters
+    const specialCharacterRexExp = /[~`!@#$%^&*()_+={\[}\]|\\<>?,./}]/g
+    if (specialCharacterRexExp.test(filteredSlug)) {
+      toast.warn('🚫no special characters!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+      setError('no special characters');
+      return;
+    }
     setError('');
     const newRedirect = {
-      slug,
+      slug: filteredSlug,
       redirect: redirect,
       expiration,
       userId: user.id || null,
@@ -193,10 +207,11 @@ function LinkForm(props) {
   return (
     <Wrapper>
       <form onSubmit={handleSubmit}>
-        <FormContainer>
-          <Group>
+        <FormContainer className="form-container">
+          <Group className="group">
             <Label htmlFor="url">URL to shorten</Label>
             <NiceInput
+              className="nice-input"
               error={error === 'URL not valid'}
               type="textarea"
               name="url"
@@ -213,7 +228,10 @@ function LinkForm(props) {
                 adumb.dev/
               </SlugText>
               <SlugInput
-                error={error === 'custom name taken'}
+                error={
+                  error === 'custom name taken' ||
+                  error === 'no special characters'
+                }
                 type="textarea"
                 name="slug"
                 value={slug}
@@ -245,7 +263,9 @@ function LinkForm(props) {
 
 export default LinkForm;
 
-
+/**
+ * Styled Components
+ */
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -302,6 +322,7 @@ const SlugInput = styled.input`
   @media (max-width: 700px) {
     margin: .5rem;
     padding: .5rem;
+    font-size: 1.5rem;
     /* width: 100vw; */
   }
 `;
@@ -322,6 +343,7 @@ const SlugText = styled.div`
   margin-right: .5rem;
   @media (max-width: 700px) {
     display: none;
+    font-size: 1.5rem;
   }
 `;
 
@@ -350,6 +372,7 @@ const ShortenButton = styled.button`
   @media (max-width: 700px) {
     background-color: white;
     border: 3px solid #59C8FF;
+    font-size: 3rem;
   }
 `;
 
@@ -386,7 +409,8 @@ const SelectLabel = styled.label`
     margin: auto;
     margin-left: .5rem;
     padding: 0;
-    font-size: 2rem;
+    padding-right: .5rem;
+    font-size: 1.5rem;
   }
 `;
 

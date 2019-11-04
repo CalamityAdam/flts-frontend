@@ -21,7 +21,8 @@ const Profile = props => {
   const [loading, setLoading] = useState(false);
   const [{ user, viewFilter, searchQuery }] = useStateValue();
   const { width } = useWindowDimensions();
-  const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
+  // const TOAST_POSITION = width <= 700 ? 'BOTTOM_CENTER' : 'TOP_CENTER';
+  const TOAST_POSITION = 'TOP_CENTER';
 
   function searchFilter(x) {
     return x.slug.includes(searchQuery) || x.redirect.includes(searchQuery);

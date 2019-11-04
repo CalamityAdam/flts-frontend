@@ -104,7 +104,6 @@ function InitialRedirect({ closeToast }) {
         if (message) {
           // not found
           if (!toast.isActive(redirectToastId)) {
-            console.log('gothere');
             toast.error('😢URL not found', {
               position: toast.POSITION.TOP_CENTER,
               toastId: redirectToastId,
@@ -129,14 +128,7 @@ function InitialRedirect({ closeToast }) {
       })
       .catch(err => console.error(err));
     return (
-      <div>
-        {!toast.isActive(loadingToastId) &&
-          toast.info('👀looking...', {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: false,
-            toastId: loadingToastId,
-          })}
-      </div>
+      null
     );
   }
   return null;

@@ -21,7 +21,6 @@ const NiceInput = styled.input`
     padding: .5rem;
     margin-top: 0;
     margin-bottom: 0;
-    
   }
 `;
 

@@ -15,6 +15,9 @@ body {
 .Toastify__toast-body {
   font-size: 2rem;
   color: black;
+  @media (max-width: 700px) {
+    font-size: 2rem;
+  }
 }
 
 code {

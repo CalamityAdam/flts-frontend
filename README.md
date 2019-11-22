@@ -16,5 +16,4 @@ A simple short link generator with optional custom names and expiration settings
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-
 >made with ❤️ by Adam Sisk

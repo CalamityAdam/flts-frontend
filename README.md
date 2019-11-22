@@ -10,7 +10,7 @@ A simple short link generator with optional custom names and expiration settings
 
 ## Authors
 
-* **Adam Sisk** - *Developer* - [github](https://github.com/PurpleBooth) | [linkedIn](https://www.linkedin.com/in/adamsisk/)
+* **Adam Sisk** - *Developer* - [github](https://github.com/calamityAdam) | [linkedIn](https://www.linkedin.com/in/adamsisk/)
 
 ## License
 

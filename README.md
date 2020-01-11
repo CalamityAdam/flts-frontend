@@ -5,8 +5,9 @@ A simple short link generator with optional custom names and expiration settings
 
 ## Built With
 
-* [React](https://reactjs.org/docs/getting-started.html) - The web framework used
-* [Styled Components](https://www.styled-components.com/docs) - CSS in JS components
++ [React](https://reactjs.org/docs/getting-started.html) - A JavaScript library for building user interfaces
++ [Styled Components](https://www.styled-components.com/docs) - Visual primitives for the component age
++ [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
 
 ## Authors
 

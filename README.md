@@ -1,7 +1,10 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9034c417-f3f9-4bb8-b6b2-e8931925e041/deploy-status)](https://app.netlify.com/sites/)
 # Sisk Short Links [frontend]
 
-A simple short link generator with optional custom names and expiration settings
+The front-end for a simple short link generator with optional custom names and expiration settings
+
+
+*[back-end](https://github.com/CalamityAdam/flts-backend)*
 
 ## Built With
 
